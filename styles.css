@@ -1,0 +1,109 @@
+/*
+Rajia M. Abdelaziz, Rajia.Abdelaziz@gmail.com, UMass Lowell Undergraduate 
+    Enrolled in 91.461 GUI Programming
+Created by RMA on September 17, 2015 at 2:00 PM
+Last Updated: 9/17/15 at 9:30 p.m
+
+This is an external style sheet created to allow Rajia's Webpage to have a 
+consistent appealing style. 
+*/
+
+/*
+All the h1 headers should use a unique font from Google and should be aligned 
+in the center of the page. h1's should also have a white color with a royal blue
+background. 
+*/
+h1
+{
+    font-family: 'Slabo 27px', serif;
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    background-color: royalblue;;
+    
+}
+/*All div's should be aligned in the center. */
+div
+{
+    text-align: center;
+}
+
+/*Tables should have a small margin on the left and a width equal to 50%*/
+table 
+{
+    border-collapse: collapse;
+    margin-left: 5%;
+    width: 50%;
+}
+
+/*Table, td and th should all have a solid black 1px border */
+table, td, th
+{
+    border: 1px solid black;
+}
+
+/*Table headers should have a royal blue background and white font*/
+th{
+    height: 50px; 
+    background-color: royalblue;
+    color: white;
+}
+
+/*Rows identified with the class header .alt should have a light blue background
+color and white font.*/
+tr.alt td{
+    color: white;
+    background-color: #00CCFF; /* Light Blue Color */
+}
+
+/*The text in td should always be alighned in the center.*/
+td{
+    text-align: center;
+}
+
+/*h3 should use a unique Google font and be italic.*/
+h3
+{
+    font-family: 'Slabo 27px', serif;
+    font-style: italic;
+}
+
+/*The images on the web pages should be centered. */
+img
+{
+   display:block;
+   margin: 0 auto;
+}
+
+/*h2 headers should have a border to seperate important content */
+h2
+{
+    border-bottom: 2px solid rgb(87,185,178);
+}
+
+/*Paragraph text should be royal blue to match the theme of the web page. */
+p 
+{
+    color:royalblue; font:sans-serif; 
+}
+
+/*The navigation bar should be centered */ 
+ul{
+    text-align: center;
+}
+
+/* The items in the navigation bar should be horizontal */
+li {
+    display: inline; 
+}
+
+/* The links shoudld have uppercase text that is a white color with a royal blue
+background color. */
+a:link, a:visited {
+    font-weight: bold;
+    color: #FFFFFF; /*This hex corresponds to the color White */
+    background-color:royalblue;
+    padding: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+}

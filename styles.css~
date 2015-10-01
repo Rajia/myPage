@@ -97,12 +97,6 @@ li {
     display: inline; 
 }
 
-/* Assignment Links should be centered. */
-.assignlink{
-    margin-left: 50px;
-    text-align: left;
-}
-
 /* The links shoudld have uppercase text that is a white color with a royal blue
 background color. */
 a:link, a:visited {

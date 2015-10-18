@@ -1,0 +1,76 @@
+/*
+Rajia M. Abdelaziz, Rajia.Abdelaziz@gmail.com, UMass Lowell Undergraduate 
+    Enrolled in 91.461 GUI Programming
+Created by RMA on October 17, 2015 at 1:00 PM
+Last Updated: 10/17/15 at 1:00 p.m
+
+This is an external style sheet created to allow assignment 6 to have an 
+appealing style. 
+*/
+
+/*
+All the h1 headers should use a unique font from Google and should be aligned 
+in the center of the page. h1's should also have a white color with a purple
+background. 
+*/
+h1
+{
+    font-family: 'Slabo 27px', serif;
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    background-color: purple;    
+}
+
+/*h3 should use a unique Google font and be italic.*/
+h3
+{
+    font-family: 'Slabo 27px', serif;
+    font-style: italic;
+}
+
+/*h2 headers should have a light purple border to seperate important content */
+h2
+{
+    font-family: 'Slabo 27px', serif;
+    border-bottom: 2px solid #BF5FFF;
+}
+
+/* Labels should be bold and alligned to the left! The labels of the text should
+be purple*/
+.label{
+    color: purple;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Divs should use a unique Google font and have a 5% margin on the left*/
+div{
+    font-family: 'Slabo 27px', serif;
+    margin-left: 5%;
+}
+
+/*The Interactive Table should have blue violet font color and use a unique Google font */
+#interactiveTable{
+    color:blueviolet;
+    font-family: 'Slabo 27px', serif;
+    border: 1px solid black;
+    margin-left: 10%;
+}
+/*Table headers should have a black background and white font*/
+th{
+    height: 50px; 
+    background-color: black;
+    color: white;
+}
+
+/*Rows identified with the class header alt should have a light purple 
+background color and white font.*/
+#alt{
+    color: white;
+    background-color: #BF5FFF; /* Light Purple Color */
+}
+#header{
+    color: white;
+    background-color: black;
+}

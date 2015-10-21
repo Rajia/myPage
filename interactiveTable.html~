@@ -4,7 +4,7 @@ File: http://weblab.cs.uml.edu/~rabdelaz/weblab/interactiveTable.html
 Rajia M. Abdelaziz, Rajia.Abdelaziz@gmail.com, UMass Lowell Undergraduate 
     Enrolled in 91.461 GUI Programming
 Created by RMA on October 17, 2015 at 9:45 AM
-Last Updated: 10/17/15 at 9:45 a.m
+Last Updated: 10/20/15 at 4:00 p.m
 This page contains a table created dynamically based on parameters entered in an 
 HTML form. 
 -->
@@ -13,8 +13,9 @@ HTML form.
         <title>Assignment 6</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--This external css file is modeled after tutorials from w3schools.com -->
+        <!--This external css file is used to style the content of the page. -->
         <link rel="stylesheet" href="form.css">
+        <!--The following script loads the JQuery library and was displayed in Professor Heines Notes -->
         <!-- 
             Load jQuery library from the Google Content Delivery Network (CDN)
             see http://encosia.com/3-reasons-why-you-should-let-google-host-jquery-for-you/
@@ -22,8 +23,7 @@ HTML form.
             alternatively, you can download jQuery and store it locally from
                http://jquery.com/download/
         -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>        
     </head>
     <body>
         <h1>Assignment 6: Creating an Interactive Dynamic Table</h1>
@@ -70,14 +70,21 @@ HTML form.
         </form> 
         
         <script>
+            //Variable Declerations
+            var para;
+            var table;
+            var th; 
+            var tr;
+            
+            /* This function is called when the submit button is pressed. */
             function validateForm(){
                 //Get the values the user entered and store them in variables
                 var multiplicand1 = document.forms["myForm"]["multiplicand1"].value;
                 var multiplicand2 = document.forms["myForm"]["multiplicand2"].value;
                 var multiplier1 = document.forms["myForm"]["multiplier1"].value;
                 var multiplier2 = document.forms["myForm"]["multiplier2"].value;
-                //Check to see if the user left any of the multiplicands empty, 
-                //If so return an alert.
+                
+                //Check to see if the user forgot to fill out a field
                 if(multiplicand1 === null || multiplicand1 === "" ){
                     alert("Error: Multiplicand 1 is NOT Filled In.");
                     return false;
@@ -94,7 +101,8 @@ HTML form.
                     alert("Error: Multiplier 2 is NOT Filled In.");
                     return false;
                 }
-                //Check to see if any of the values the user entered are NaN
+                
+                //Check to see if any of the values the user entered are not a number
                 if(isNaN(multiplicand1)){
                     alert("Error: Multiplicand 1 is NOT a number.");
                 }
@@ -107,9 +115,10 @@ HTML form.
                 if(isNaN(multiplier2)){
                     alert("Error: Multiplier 2 is NOT a number.");
                 }
+                
                 //Display the values the user entered.
-                displayMultiplicandsAndMultipliers("Multipliers: ", multiplier1, multiplier2);
-                displayMultiplicandsAndMultipliers("Multiplicands: ", multiplicand1, multiplicand2);
+                displayMultiplicands("Multipliers: ", multiplier1, multiplier2);
+                displayMultipliers("Multiplicands: ", multiplicand1, multiplicand2);
                 
                 //Check to see if multiplicand1 is less than multiplicand2, if so swap them. 
                 if(multiplicand1>multiplicand2){
@@ -129,25 +138,33 @@ HTML form.
                 
                 //Create and Display the Interactive Table
                 createAndDisplayTable(multiplicand1, multiplicand2, multiplier1, multiplier2);
-                
                 return false; 
             }
             
-            //This function displays the multiplicands and multipliers.
-            function displayMultiplicandsAndMultipliers(name, m1, m2){
-                var para = document.createElement("P");
-                var t = document.createTextNode(name + " " + m1 + " and " + m2);
-                para.appendChild(t);
-                document.body.appendChild(para);
+            //This function displays the multiplicands.
+            function displayMultiplicands(name, m1, m2){
+                var strContent = "";
+                //Creates Dynamic content from JSON
+                strContent += "<p>" + name + " " + m1 + " and " + m2 + "</p>" ;
+                jQuery("#multiplicandContent").html( strContent ) ;
             }
+            
+            //This function displays the multipliers.
+            function displayMultipliers(name, m1, m2){
+                var strContent = "";
+                //Creates Dynamic content from JSON
+                strContent += "<p>" + name + " " + m1 + " and " + m2 + "</p>" ;
+                jQuery("#multiplierContent").html( strContent ) ;
+            }
+
             /*This function creatse a table to display the data.
             It uses the functions createElement, createTextNode and appendChild
-            These were modeled after tutorials from w3schools.com
+            These were modeled after tutorials from w3schools.com . 
             Source: http://www.w3schools.com/jsref/met_document_createelement.asp */
             function createAndDisplayTable(rowStart, rowEnd, columnStart, columnEnd){
-                var table = document.createElement('table');
+                table = document.createElement('table');
                 table.id = "interactiveTable";
-                var th = document.createElement('tr');
+                th = document.createElement('tr');
                 //Create the header row
                 for (var k = columnStart-1; k <= columnEnd; k++){
                         if(k>=columnStart){
@@ -156,7 +173,7 @@ HTML form.
                             tdh.appendChild(headerText);
                             th.appendChild(tdh);
                             th.id = "header";
-                        }else{
+                        }else{ //This is the first cell, it should be empty.
                             var tdh = document.createElement('td');
                             var headerText = document.createTextNode(' ');
                             tdh.appendChild(headerText);
@@ -167,7 +184,7 @@ HTML form.
                 table.appendChild(th);
                 //Create the Table Rows 
                 for (var i = rowStart; i <= rowEnd; i++){
-                    var tr = document.createElement('tr');
+                    tr = document.createElement('tr');
                     var tIndex = document.createElement('td');
                     var indexText = document.createTextNode(' ' + i + ' ');
                     tIndex.appendChild(indexText);
@@ -189,9 +206,12 @@ HTML form.
                     table.appendChild(tr);
                 }
                 document.body.appendChild(table); 
+                jQuery("#tableContent").html( table ) ;
             }
         </script>
         <h3>The Values You Entered are: </h3>
-        <div id="content"></div>
+        <div id="multiplicandContent"></div>
+        <div id="multiplierContent"></div>
+        <div id="tableContent"></div>
     </body>
 </html>

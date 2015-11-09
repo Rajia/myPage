@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!--
+File: http://weblab.cs.uml.edu/~rabdelaz/weblab/interactiveTable.html
+Rajia M. Abdelaziz, Rajia.Abdelaziz@gmail.com, UMass Lowell Undergraduate 
+    Enrolled in 91.461 GUI Programming
+Created by RMA on November 8, 2015 at 1:00 PM
+Last Updated: 11/08/15 at 7:30 p.m
+This page contains a table created dynamically based on parameters entered in an 
+HTML form. It uses the JQuery Validation Plug-In to ensure fields are properly filled in. 
+-->
+<html>
+    <head>
+        <title>Assignment 7</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--This external css file is used to style the content of the page. -->
+        <link rel="stylesheet" href="form_with_Validation.css">
+        <!--The following script loads the JQuery library and was displayed in Professor Heines Notes -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>  
+        <!--The following script loads the JQuery Validation Plug-In which is stored in the js folder -->
+        <script src="js/jquery.validate.min.js"></script>
+        <script>
+        //The following script uses the jQuery validation plug-in to designate which input fields are required and which must be numbers.      
+        //The messages section of the script ensures that messages are precise, relevant and helpful to the user.
+        //The max field specifies that the number inputted cannot be larger than 10000 (numbers larger than this will cause the page to break)
+        $(document).ready( function(){
+            $('#myForm').validate({
+                rules : {
+                  multiplier1 : {
+                    required : true,
+                    number : true, 
+                    max : 10000
+                  },
+                  multiplier2 : {
+                    required : true,
+                    number : true, 
+                    max : 10000
+                  }, 
+                  multiplicand1 : {
+                    required : true,
+                    number : true, 
+                    max : 10000
+                  }, 
+                  multiplicand2 : {
+                    required : true,
+                    number : true, 
+                    max : 10000
+                  }
+                }, 
+                messages : {
+                    multiplier1 : {
+                        required: "Multiplier 1 is a required field.",
+                        number : "Multiplier 1 must be a valid number.",
+                        max : "Multiplier 1 cannot be larger than 10,000."
+                    },
+                    multiplier2 : {
+                        required: "Multiplier 2 is a required field.",
+                        number : "Multiplier 2 must be a valid number.",
+                        max : "Multiplier 2 cannot be larger than 10,000."
+                    },
+                    multiplicand1 : {
+                        required: "Multiplicand 1 is a required field.",
+                        number : "Multiplicand 1 must be a valid number.",
+                        max : "Multiplicand 1 cannot be larger than 10,000."
+                    },
+                    multiplicand2 : {
+                        required: "Multiplicand 2 is a required field.",
+                        number : "Multiplicand 2 must be a valid number.",
+                        max : "Multiplier 1 cannot be larger than 10,000."
+                    }
+                }
+            });
+        });
+        </script>
+    </head>
+    <body>
+        <h1>Assignment 7: Using the jQuery Validation Plug-in with your Dynamic Table</h1>
+        <h2>Please Fill Out the Form:</h2>
+        
+        <!--The form has four text-fields allowing the user to enter the range
+        of the multiplicand and the range of the multiplier. It also has a submit
+        button allowing them to enter the data.-->
+        <form id="myForm" action="" method="post" onsubmit="return validateForm()">
+            <br>
+            <!--Input for Multiplier 1 -->
+            <div>
+                <label for="multiplier1" class="label">Multiplier 1:</label>
+                <br>
+                <input name="multiplier1" type="text" id="multiplier1" size="36">
+            </div>
+            <br>
+            <!--Input for Multiplier 2-->
+            <div>
+                <label for="multiplier2" class="label">Multiplier 2:</label>
+                <br>
+                <input name="multiplier2" type="text" id="multiplier2" size="36">
+            </div>
+            <br>
+            <!--Input for Multiplicand 1 -->
+            <div>
+                <label for="multiplicand1" class="label">Multiplicand 1:</label>
+                <br>
+                <input name="multiplicand1" type="text" id="multiplicand1" size="36">
+            </div>
+            <br>
+            <!--Input for Multiplicand 2 -->
+            <div>
+                <label for="multiplicand2" class="label">Multiplicand 2:</label>
+                <br>
+                <input name="multiplicand2" type="text" id="multiplicand2" size="36">
+            </div>
+            <br>
+            <!--Submit Button -->
+            <br>
+            <div>
+                <input type="submit" value="Submit">
+            </div>  
+        </form> 
+        
+        <script>
+            //Variable Declerations
+            var para;
+            var table;
+            var th; 
+            var tr;
+            
+            /* This function is called when the submit button is pressed. */
+            function validateForm(){
+                //Check to see whether validate returned true or false.
+                //If there is an error in the form (else case), hide the components on the page and don't reload the page until the user fixes the error
+                if( $("#myForm").valid() ){
+                    //Get the values the user entered and store them in variables
+                    var multiplicand1 = document.forms["myForm"]["multiplicand1"].value;
+                    var multiplicand2 = document.forms["myForm"]["multiplicand2"].value;
+                    var multiplier1 = document.forms["myForm"]["multiplier1"].value;
+                    var multiplier2 = document.forms["myForm"]["multiplier2"].value;
+                    var multiplierAlertContent = "";
+                    var multiplicandAlertContent = "";
+                    
+                    //Show the components
+                    $('#tableContent').show();
+                    $('#multiplierAlert').show();
+                    $('#multiplicandAlert').show();
+                    $('#multiplierContent').show();
+                    $('#multiplicandContent').show();                         
+
+                    //Check to see if multiplicand is less than multiplicand2, if so swap them. 
+                    if(+multiplicand1 > +multiplicand2){
+                        var temp2;
+                        temp2 = multiplicand1;
+                        multiplicand1 = multiplicand2;
+                        multiplicand2 = temp2;
+                        multiplicandAlertContent += "<p>" + " Multiplicand 1 was larger than Multiplicand 2, so there values were swapped. " + "</p>" ;
+                    }
+
+                    //Check to see if multiplier1 is less than multiplier2, if so swap them. 
+                    if(+multiplier1 > +multiplier2){
+                        var temp2;
+                        temp2 = multiplier1;
+                        multiplier1 = multiplier2;
+                        multiplier2 = temp2;
+                        multiplierAlertContent += "<p>" + " Multiplier 1 was larger than Multiplier 2, so there values were swapped. " + "</p>" ;
+                    }
+                    
+                    //Display a warning if any numbers were swapped.
+                    jQuery("#multiplierAlert").html( multiplierAlertContent ) ;                    
+                    jQuery("#multiplicandAlert").html( multiplicandAlertContent ) ;
+                    
+                    //Display the values the user entered.
+                    displayMultiplicands("Multiplicands: ", multiplicand1, multiplicand2);
+                    displayMultipliers("Multipliers: ", multiplier1, multiplier2);
+
+                    //Create and Display the Interactive Table
+                    createAndDisplayTable(multiplicand1, multiplicand2, multiplier1, multiplier2);
+                    return false;
+                }else{
+                    //The user did not fill out the form properly. Do not create the table.  
+                    $('#tableContent').hide();
+                    $('#multiplierAlert').hide();
+                    $('#multiplicandAlert').hide();
+                    $('#multiplierContent').hide();
+                    $('#multiplicandContent').hide();
+                    return false; 
+                }
+            }
+            
+            //This function displays the multiplicands.
+            function displayMultiplicands(name, m1, m2){
+                var strContent = "";
+                //Creates Dynamic content from JSON
+                strContent += "<p>" + name + " " + m1 + " and " + m2 + "</p>" ;
+                jQuery("#multiplicandContent").html( strContent ) ;
+            }
+            
+            //This function displays the multipliers.
+            function displayMultipliers(name, m1, m2){
+                var strContent = "";
+                //Creates Dynamic content from JSON
+                strContent += "<p>" + name + " " + m1 + " and " + m2 + "</p>" ;
+                jQuery("#multiplierContent").html( strContent ) ;
+            }
+
+            /*This function creatse a table to display the data.
+            It uses the functions createElement, createTextNode and appendChild
+            These were modeled after tutorials from w3schools.com . 
+            Source: http://www.w3schools.com/jsref/met_document_createelement.asp */
+            function createAndDisplayTable(rowStart, rowEnd, columnStart, columnEnd){
+                table = document.createElement('table');
+                table.id = "interactiveTable";
+                th = document.createElement('tr');
+                //Create the header row
+                for (var k = columnStart-1; k <= columnEnd; k++){
+                        if(k>=columnStart){
+                            var tdh = document.createElement('td');
+                            var headerText = document.createTextNode(' ' + k + ' ');
+                            tdh.appendChild(headerText);
+                            th.appendChild(tdh);
+                            th.id = "header";
+                        }else{ //This is the first cell, it should be empty.
+                            var tdh = document.createElement('td');
+                            var headerText = document.createTextNode(' ');
+                            tdh.appendChild(headerText);
+                            th.appendChild(tdh);
+                            th.id = "header";
+                        }
+                }
+                table.appendChild(th);
+                //Create the Table Rows 
+                for (var i = rowStart; i <= rowEnd; i++){
+                    tr = document.createElement('tr');
+                    var tIndex = document.createElement('td');
+                    var indexText = document.createTextNode(' ' + i + ' ');
+                    tIndex.appendChild(indexText);
+                    tIndex.id = "header";
+                    tr.appendChild(tIndex);
+                    //Every other row should be styled differently
+                    if(i % 2){
+                        tr.id = "normal";
+                    }else{
+                        tr.id = "alt";
+                    }
+                    //Create Columns
+                    for(var j=columnStart; j<=columnEnd; j++){
+                        var td1 = document.createElement('td');
+                        var text1 = document.createTextNode(' ' + i*j + ' ');
+                        td1.appendChild(text1);
+                        tr.appendChild(td1);
+                    }
+                    table.appendChild(tr);
+                }
+                document.body.appendChild(table); 
+                jQuery("#tableContent").html( table ) ;
+            }
+        </script>
+        <h3>The Values You Entered are: </h3>
+        
+        <!--Components to show a message if values were swapped -->
+        <div id="multiplierAlert" class="textAlert"></div>
+        <div id="multiplicandAlert" class="textAlert"></div>
+        
+        <!--Components to show the values of the multiplier and multiplicands -->
+        <div id="multiplicandContent"></div>
+        <div id="multiplierContent"></div>
+        
+        <!--Component to show table -->
+        <div id="tableContent"></div>
+    </body>
+</html>

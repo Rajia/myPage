@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+File: http://weblab.cs.uml.edu/~rabdelaz/weblab/interactiveTable_with_jQueryUI.html
+Rajia M. Abdelaziz, Rajia.Abdelaziz@gmail.com, UMass Lowell Undergraduate 
+    Enrolled in 91.461 GUI Programming
+Created by RMA on November 11, 2015 at 5:33 PM
+Last Updated: 11/27/15 at 5:33 p.m
+This page contains a table created dynamically based on parameters entered in an 
+HTML form. It uses the JQuery Validation Plug-In to ensure fields are properly filled in. 
+It also uses the JQuery UI to implement sliders and tab widgets. 
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Assignment 8</title>
+  <!--These external css files are used to style the content of the page. -->
+  <link rel="stylesheet" href="form_with_UI.css">      
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <!--The following scripts load jQuery and jQuery-ui-->
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <!--The following script loads the JQuery Validation Plug-In which is stored in the js folder -->
+  <script src="js/jquery.validate.min.js"></script>
+  <!--The following script loads the JavaScript for the assignment: creating the table, tabs, etc.-->
+  <script src="js/assn8.js"></script>
+</head>
+
+<body>
+ <h1>Assignment 8: Using the jQuery UI Slider and Tab Widgets</h1>
+ <!--Components to show a message if values were swapped -->
+ <div id="multiplierAlert" class="textAlert"></div>
+ <div id="multiplicandAlert" class="textAlert"></div>
+        
+ <!--Components to show the values of the multiplier and multiplicands -->
+ <div id="multiplicandContent"></div>
+ <div id="multiplierContent"></div>
+        
+ <!--Component to show table -->
+ <div id="tab_content"></div>
+ 
+        
+<div id="dialog" title="Data Entry Form">
+  <form id="myForm">
+    <fieldset>
+      <br>
+    <!--Input for Multiplier 1 -->
+    <div>
+        <label for="multiplier1" class="label">Multiplier 1:</label>
+        <br>
+        <input name="multiplier1" type="text" id="multiplier1" size="36">
+    </div>
+    <br>
+    <div id="multiplier1_slider" class="customsliders"></div>
+    <br>
+    <!--Input for Multiplier 2-->
+    <div>
+        <label for="multiplier2" class="label">Multiplier 2:</label>
+        <br>
+        <input name="multiplier2" type="text" id="multiplier2" size="36">
+    </div>
+    <br>
+    <div id="multiplier2_slider" class="customsliders"></div>
+    <br>
+    <!--Input for Multiplicand 1 -->
+    <div>
+        <label for="multiplicand1" class="label">Multiplicand 1:</label>
+        <br>
+        <input name="multiplicand1" type="text" id="multiplicand1" size="36">
+    </div>
+    <br>
+    <div id="multiplicand1_slider" class="customsliders"></div>
+    <br>
+    <!--Input for Multiplicand 2 -->
+    <div>
+        <label for="multiplicand2" class="label">Multiplicand 2:</label>
+        <br>
+        <input name="multiplicand2" type="text" id="multiplicand2" size="36">
+    </div>
+    <br>
+    <div id="multiplicand2_slider" class="customsliders"></div>
+    <br>        
+    </fieldset>
+  </form>
+</div>
+ 
+<button id="add_tab">Input Data</button>
+ 
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Welcome!</a> <span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+  </ul>
+  <div id="tabs-1">
+    <p>Click on the Input Data button to fill out the form and to begin generating tables.</p>
+  </div>
+</div>
+ 
+</body>
+</html>

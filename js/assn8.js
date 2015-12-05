@@ -275,6 +275,23 @@ $(function() {
       dialog.dialog( "open" );
   });
 
+  // Delete All Tabs Button: Deletes all the open tabs.
+  $( "#delete_tabs" )
+    .button()
+    .click(function() {
+        //Clears all the tabs
+        $("#tabs ul").empty();
+        tabsCounter = 0;
+        
+        //Clears all the data
+        $("#tabs div").each(function()
+        {
+            if($(this).is("div"))
+            {
+                $(this).remove();
+            }
+        });
+  });
   //Close Icon: Removes the tab on click
   tabs.delegate( "span.ui-icon-close", "click", function() {
     var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );

@@ -16,20 +16,20 @@ $(function() {
   var table;
   var th; 
   var tr;
-  
-  
+
   //Create variable for tab title, content and a template.   
   var tabTitle = $( "#tab_title" ),
+    tabContent = $( "#tab_content" ),
     tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>",
     tabCounter = 2;
 
   //Create Tabs
   var tabs = $( "#tabs" ).tabs();
 
-  //Configure the slider options so that each slider has values between -15 - 15. 
+  //Configure the slider options so that each slider has values between 0-99. 
   var sliderOpts = {
-      min: -15,
-      max: 15,
+      min:0,
+      max: 99,
       animate: true,
       change: function(){
           //Change the value in the input field when the slider position changes. 
@@ -66,31 +66,27 @@ $(function() {
 
   //Validate Form 
   $('#myForm').validate({
-      //Rules: Mulipliers and Multiplicands are required and must be numbers between -15 and 15. 
+      //Rules: Mulipliers and Multiplicands are required and must be numbers less than 100. 
       rules : {
         multiplier1 : {
           required : true,
-          number : true,
-          min : -15, 
-          max : 15
+          number : true, 
+          max : 99
         },
         multiplier2 : {
           required : true,
-          number : true,
-          min : -15,
-          max : 15
+          number : true, 
+          max : 99
         }, 
         multiplicand1 : {
           required : true,
-          number : true,
-          min : -15, 
-          max : 15
+          number : true, 
+          max : 99
         }, 
         multiplicand2 : {
           required : true,
-          number : true,
-          min : -15,
-          max : 15
+          number : true, 
+          max : 99
         }
       }, 
       //Messages: Print out the appropriate meessage regarding the error. 
@@ -98,26 +94,22 @@ $(function() {
           multiplier1 : {
               required: "Multiplier 1 is a required field.",
               number : "Multiplier 1 must be a valid number.",
-              min : "Multiplier 1 cannot be smaller than -15", 
-              max : "Multiplier 1 cannot be larger than 15."
+              max : "Multiplier 1 cannot be larger than 99."
           },
           multiplier2 : {
               required: "Multiplier 2 is a required field.",
               number : "Multiplier 2 must be a valid number.",
-              min : "Multiplier 2 cannot be smaller than -15", 
-              max : "Multiplier 2 cannot be larger than 15."
+              max : "Multiplier 2 cannot be larger than 99."
           },
           multiplicand1 : {
               required: "Multiplicand 1 is a required field.",
               number : "Multiplicand 1 must be a valid number.",
-              min : "Multiplicand 1 cannot be smaller than -15", 
-              max : "Multiplicand 1 cannot be larger than 15."
+              max : "Multiplicand 1 cannot be larger than 99."
           },
           multiplicand2 : {
               required: "Multiplicand 2 is a required field.",
               number : "Multiplicand 2 must be a valid number.",
-              min : "Multiplicand 2 cannot be smaller than -15", 
-              max : "Multiplicand 2 cannot be larger than 15."
+              max : "Multiplier 1 cannot be larger than 99."
           }
       }
   });
@@ -170,6 +162,7 @@ $(function() {
           }
           table.appendChild(tr);
       }
+      //document.body.appendChild(table);
       jQuery("#tab_content").html( table ) ;
   }        
   //Create a dialog box with our form that contains two buttons: Add and Cancel. 
@@ -180,11 +173,8 @@ $(function() {
     //Butons: Add and Cancel, Add calls addTab. Cancel closes the dialog.
     buttons: {
       Add: function() {
-        //Check to see if the input is valid, if so addTab and close dialog.
-        if( $("#myForm").valid() ) {
-            addTab();
-            $( this ).dialog( "close" );
-        }
+        addTab();
+        $( this ).dialog( "close" );
       },
       Cancel: function() {
         $( this ).dialog( "close" );
@@ -197,7 +187,7 @@ $(function() {
 
   //Submit Function (Add Button) inside the form. 
   var form = dialog.find( "form" ).submit(function( event ) {
-    //When the user presses the submit button, add the tab, and then close the dialog box containing the form.   
+    //When the user presses the submit button, validate the form, add the tab, and then close the dialog box containing the form.   
     addTab();
     dialog.dialog( "close" );
     event.preventDefault();
@@ -222,12 +212,12 @@ $(function() {
   //addTab function: adds new tab using the input from the form.
   function addTab() {
       //Display the Multipliers and Multiplicands in the content of the tab
-      multiplierHtml = "The multipliers you entered were: " + a + " and " + b; 
-      multiplicandsHtml = "The multiplicands you entered were: " + c + " and " + d; 
+      multiplierHtml = "The multipliers you entered are: " + a + " and " + b; 
+      multiplicandsHtml = "The multiplicands you entered are: " + c + " and " + d; 
 
       //Check to see if multiplicand1 is less than multiplicand2, if so swap them. 
       if(a > b){
-          multiplierAlertHtml = "<br>" + " Multiplier 1 was larger than Multiplier 2, so there values were swapped. " + "<br>" ;
+          multiplierAlertHtml = "<br>" + " Multiplier 1 was larger than Multiplier 2, so there values were swapped on the table. " + "<br>" ;
           var temp1;
           temp1 = a;
           a = b;
@@ -238,7 +228,7 @@ $(function() {
 
       //Check to see if multiplier1 is less than multiplier2, if so swap them.
       if(c > d){
-          multiplicandAlertHtml = "<br>" + " Multiplicand 1 was larger than Multiplicand 2, so there values were swapped. " + "<br>" ;
+          multiplicandAlertHtml = "<br>" + " Multiplicand 1 was larger than Multiplicand 2, so there values were swapped on the table. " + "<br>" ;
           var temp2;
           temp2 = c;
           c = d;
@@ -257,13 +247,11 @@ $(function() {
 
      //Add the tab to the last tab and increase the tab counter. 
      tabs.find( ".ui-tabs-nav" ).append( li );
-     $("div#tabs").append( "<div id='" + id + "'>" + multiplierAlertHtml + multiplicandAlertHtml + "<br>" + multiplierHtml + "<br><br>" + multiplicandsHtml + "<br><br>" + $("#tab_content").html() + "</div>" );
-     $("#tabs").tabs( "refresh" );
+     tabs.append( "<div id='" + id + "'><p>" + multiplierAlertHtml + multiplicandAlertHtml + "<br>" + multiplierHtml + "<br><br>" + multiplicandsHtml + "<br><br>" +  "</p></div>" );
+     tabs.append( $("#tab_content"));
+     tabs.tabs( "refresh" );
      tabCounter++;
-     
-     //Hide the table so we dont see it, except in the tabs. 
-      $("#tab_content").hide();
-     
+
      //Reset the Sliders and the Text Inputs:
      resetValues(); 
   }

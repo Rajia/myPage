@@ -690,3 +690,39 @@ function double_triple_word() {
   }
   return 0;
 }
+
+function updateTable() {
+  //Variable Declerations
+  var x = 0;
+  var first = true;
+
+  // Go through every cell in the table and update it.
+  $('#letters_remain tr').each(function() {
+
+    if (x > 25) {  
+      return true;
+    }
+
+    $(this).find('td').each(function() {
+      if (first === true) {
+        first = false;
+        return false;
+      }
+
+      if (x > 25) {
+        return false;
+      }
+
+      var letter = scrabble_pieces[x].letter;
+      var remaining = scrabble_pieces[x].remaining;
+
+      $(this).html(letter + ": " + remaining);
+
+      x++;    
+      return true;
+    });
+    return true;
+  });
+
+  return true;
+}

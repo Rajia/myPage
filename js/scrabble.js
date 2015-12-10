@@ -14,7 +14,7 @@ var original_tiles = [
 //Data sturcute for the game_board squares (for now only implementing score calculations for the first row.
 //Originally when the tile is empty, we will give it the value pieceEmpty
 var game_board = [
-  //Row 1
+  //Row 0
   {"id": "r0_c0",  "tile": "pieceEmpty"},
   {"id": "r0_c1",  "tile": "pieceEmpty"},
   {"id": "r0_c2",  "tile": "pieceEmpty"},
@@ -30,7 +30,7 @@ var game_board = [
   {"id": "r0_c12",  "tile": "pieceEmpty"},
   {"id": "r0_c13",  "tile": "pieceEmpty"},
   {"id": "r0_c14",  "tile": "pieceEmpty"},
-    
+  //Row 1  
   {"id": "r1_c0",  "tile": "pieceEmpty"},
   {"id": "r1_c1",  "tile": "pieceEmpty"},
   {"id": "r1_c2",  "tile": "pieceEmpty"},
@@ -46,6 +46,227 @@ var game_board = [
   {"id": "r1_c12",  "tile": "pieceEmpty"},
   {"id": "r1_c13",  "tile": "pieceEmpty"},
   {"id": "r1_c14",  "tile": "pieceEmpty"},
+
+  //Row 2  
+  {"id": "r2_c0",  "tile": "pieceEmpty"},
+  {"id": "r2_c1",  "tile": "pieceEmpty"},
+  {"id": "r2_c2",  "tile": "pieceEmpty"},
+  {"id": "r2_c3",  "tile": "pieceEmpty"},
+  {"id": "r2_c4",  "tile": "pieceEmpty"},
+  {"id": "r2_c5",  "tile": "pieceEmpty"},
+  {"id": "r2_c6",  "tile": "pieceEmpty"},
+  {"id": "r2_c7",  "tile": "pieceEmpty"},
+  {"id": "r2_c8",  "tile": "pieceEmpty"},
+  {"id": "r2_c9",  "tile": "pieceEmpty"},
+  {"id": "r2_c10",  "tile": "pieceEmpty"},
+  {"id": "r2_c11",  "tile": "pieceEmpty"},
+  {"id": "r2_c12",  "tile": "pieceEmpty"},
+  {"id": "r2_c13",  "tile": "pieceEmpty"},
+  {"id": "r2_c14",  "tile": "pieceEmpty"},
+
+   //Row 3  
+  {"id": "r3_c0",  "tile": "pieceEmpty"},
+  {"id": "r3_c1",  "tile": "pieceEmpty"},
+  {"id": "r3_c2",  "tile": "pieceEmpty"},
+  {"id": "r3_c3",  "tile": "pieceEmpty"},
+  {"id": "r3_c4",  "tile": "pieceEmpty"},
+  {"id": "r3_c5",  "tile": "pieceEmpty"},
+  {"id": "r3_c6",  "tile": "pieceEmpty"},
+  {"id": "r3_c7",  "tile": "pieceEmpty"},
+  {"id": "r3_c8",  "tile": "pieceEmpty"},
+  {"id": "r3_c9",  "tile": "pieceEmpty"},
+  {"id": "r3_c10",  "tile": "pieceEmpty"},
+  {"id": "r3_c11",  "tile": "pieceEmpty"},
+  {"id": "r3_c12",  "tile": "pieceEmpty"},
+  {"id": "r3_c13",  "tile": "pieceEmpty"},
+  {"id": "r3_c14",  "tile": "pieceEmpty"},
+
+   //Row 4  
+  {"id": "r4_c0",  "tile": "pieceEmpty"},
+  {"id": "r4_c1",  "tile": "pieceEmpty"},
+  {"id": "r4_c2",  "tile": "pieceEmpty"},
+  {"id": "r4_c3",  "tile": "pieceEmpty"},
+  {"id": "r4_c4",  "tile": "pieceEmpty"},
+  {"id": "r4_c5",  "tile": "pieceEmpty"},
+  {"id": "r4_c6",  "tile": "pieceEmpty"},
+  {"id": "r4_c7",  "tile": "pieceEmpty"},
+  {"id": "r4_c8",  "tile": "pieceEmpty"},
+  {"id": "r4_c9",  "tile": "pieceEmpty"},
+  {"id": "r4_c10",  "tile": "pieceEmpty"},
+  {"id": "r4_c11",  "tile": "pieceEmpty"},
+  {"id": "r4_c12",  "tile": "pieceEmpty"},
+  {"id": "r4_c13",  "tile": "pieceEmpty"},
+  {"id": "r4_c14",  "tile": "pieceEmpty"},
+
+   //Row 5  
+  {"id": "r5_c0",  "tile": "pieceEmpty"},
+  {"id": "r5_c1",  "tile": "pieceEmpty"},
+  {"id": "r5_c2",  "tile": "pieceEmpty"},
+  {"id": "r5_c3",  "tile": "pieceEmpty"},
+  {"id": "r5_c4",  "tile": "pieceEmpty"},
+  {"id": "r5_c5",  "tile": "pieceEmpty"},
+  {"id": "r5_c6",  "tile": "pieceEmpty"},
+  {"id": "r5_c7",  "tile": "pieceEmpty"},
+  {"id": "r5_c8",  "tile": "pieceEmpty"},
+  {"id": "r5_c9",  "tile": "pieceEmpty"},
+  {"id": "r5_c10",  "tile": "pieceEmpty"},
+  {"id": "r5_c11",  "tile": "pieceEmpty"},
+  {"id": "r5_c12",  "tile": "pieceEmpty"},
+  {"id": "r5_c13",  "tile": "pieceEmpty"},
+  {"id": "r5_c14",  "tile": "pieceEmpty"},
+
+   //Row 6  
+  {"id": "r6_c0",  "tile": "pieceEmpty"},
+  {"id": "r6_c1",  "tile": "pieceEmpty"},
+  {"id": "r6_c2",  "tile": "pieceEmpty"},
+  {"id": "r6_c3",  "tile": "pieceEmpty"},
+  {"id": "r6_c4",  "tile": "pieceEmpty"},
+  {"id": "r6_c5",  "tile": "pieceEmpty"},
+  {"id": "r6_c6",  "tile": "pieceEmpty"},
+  {"id": "r6_c7",  "tile": "pieceEmpty"},
+  {"id": "r6_c8",  "tile": "pieceEmpty"},
+  {"id": "r6_c9",  "tile": "pieceEmpty"},
+  {"id": "r6_c10",  "tile": "pieceEmpty"},
+  {"id": "r6_c11",  "tile": "pieceEmpty"},
+  {"id": "r6_c12",  "tile": "pieceEmpty"},
+  {"id": "r6_c13",  "tile": "pieceEmpty"},
+  {"id": "r6_c14",  "tile": "pieceEmpty"},
+
+   //Row 7  
+  {"id": "r7_c0",  "tile": "pieceEmpty"},
+  {"id": "r7_c1",  "tile": "pieceEmpty"},
+  {"id": "r7_c2",  "tile": "pieceEmpty"},
+  {"id": "r7_c3",  "tile": "pieceEmpty"},
+  {"id": "r7_c4",  "tile": "pieceEmpty"},
+  {"id": "r7_c5",  "tile": "pieceEmpty"},
+  {"id": "r7_c6",  "tile": "pieceEmpty"},
+  {"id": "r7_c7",  "tile": "pieceEmpty"},
+  {"id": "r7_c8",  "tile": "pieceEmpty"},
+  {"id": "r7_c9",  "tile": "pieceEmpty"},
+  {"id": "r7_c10",  "tile": "pieceEmpty"},
+  {"id": "r7_c11",  "tile": "pieceEmpty"},
+  {"id": "r7_c12",  "tile": "pieceEmpty"},
+  {"id": "r7_c13",  "tile": "pieceEmpty"},
+  {"id": "r7_c14",  "tile": "pieceEmpty"},
+
+   //Row 8
+  {"id": "r8_c0",  "tile": "pieceEmpty"},
+  {"id": "r8_c1",  "tile": "pieceEmpty"},
+  {"id": "r8_c2",  "tile": "pieceEmpty"},
+  {"id": "r8_c3",  "tile": "pieceEmpty"},
+  {"id": "r8_c4",  "tile": "pieceEmpty"},
+  {"id": "r8_c5",  "tile": "pieceEmpty"},
+  {"id": "r8_c6",  "tile": "pieceEmpty"},
+  {"id": "r8_c7",  "tile": "pieceEmpty"},
+  {"id": "r8_c8",  "tile": "pieceEmpty"},
+  {"id": "r8_c9",  "tile": "pieceEmpty"},
+  {"id": "r8_c10",  "tile": "pieceEmpty"},
+  {"id": "r8_c11",  "tile": "pieceEmpty"},
+  {"id": "r8_c12",  "tile": "pieceEmpty"},
+  {"id": "r8_c13",  "tile": "pieceEmpty"},
+  {"id": "r8_c14",  "tile": "pieceEmpty"},
+
+   //Row 9  
+  {"id": "r9_c0",  "tile": "pieceEmpty"},
+  {"id": "r9_c1",  "tile": "pieceEmpty"},
+  {"id": "r9_c2",  "tile": "pieceEmpty"},
+  {"id": "r9_c3",  "tile": "pieceEmpty"},
+  {"id": "r9_c4",  "tile": "pieceEmpty"},
+  {"id": "r9_c5",  "tile": "pieceEmpty"},
+  {"id": "r9_c6",  "tile": "pieceEmpty"},
+  {"id": "r9_c7",  "tile": "pieceEmpty"},
+  {"id": "r9_c8",  "tile": "pieceEmpty"},
+  {"id": "r9_c9",  "tile": "pieceEmpty"},
+  {"id": "r9_c10",  "tile": "pieceEmpty"},
+  {"id": "r9_c11",  "tile": "pieceEmpty"},
+  {"id": "r9_c12",  "tile": "pieceEmpty"},
+  {"id": "r9_c13",  "tile": "pieceEmpty"},
+  {"id": "r9_c14",  "tile": "pieceEmpty"},
+
+   //Row 10  
+  {"id": "r10_c0",  "tile": "pieceEmpty"},
+  {"id": "r10_c1",  "tile": "pieceEmpty"},
+  {"id": "r10_c2",  "tile": "pieceEmpty"},
+  {"id": "r10_c3",  "tile": "pieceEmpty"},
+  {"id": "r10_c4",  "tile": "pieceEmpty"},
+  {"id": "r10_c5",  "tile": "pieceEmpty"},
+  {"id": "r10_c6",  "tile": "pieceEmpty"},
+  {"id": "r10_c7",  "tile": "pieceEmpty"},
+  {"id": "r10_c8",  "tile": "pieceEmpty"},
+  {"id": "r10_c9",  "tile": "pieceEmpty"},
+  {"id": "r10_c10",  "tile": "pieceEmpty"},
+  {"id": "r10_c11",  "tile": "pieceEmpty"},
+  {"id": "r10_c12",  "tile": "pieceEmpty"},
+  {"id": "r10_c13",  "tile": "pieceEmpty"},
+  {"id": "r10_c14",  "tile": "pieceEmpty"},
+
+   //Row 11  
+  {"id": "r11_c0",  "tile": "pieceEmpty"},
+  {"id": "r11_c1",  "tile": "pieceEmpty"},
+  {"id": "r11_c2",  "tile": "pieceEmpty"},
+  {"id": "r11_c3",  "tile": "pieceEmpty"},
+  {"id": "r11_c4",  "tile": "pieceEmpty"},
+  {"id": "r11_c5",  "tile": "pieceEmpty"},
+  {"id": "r11_c6",  "tile": "pieceEmpty"},
+  {"id": "r11_c7",  "tile": "pieceEmpty"},
+  {"id": "r11_c8",  "tile": "pieceEmpty"},
+  {"id": "r11_c9",  "tile": "pieceEmpty"},
+  {"id": "r11_c10",  "tile": "pieceEmpty"},
+  {"id": "r11_c11",  "tile": "pieceEmpty"},
+  {"id": "r11_c12",  "tile": "pieceEmpty"},
+  {"id": "r11_c13",  "tile": "pieceEmpty"},
+  {"id": "r11_c14",  "tile": "pieceEmpty"},
+
+   //Row 12  
+  {"id": "r12_c0",  "tile": "pieceEmpty"},
+  {"id": "r12_c1",  "tile": "pieceEmpty"},
+  {"id": "r12_c2",  "tile": "pieceEmpty"},
+  {"id": "r12_c3",  "tile": "pieceEmpty"},
+  {"id": "r12_c4",  "tile": "pieceEmpty"},
+  {"id": "r12_c5",  "tile": "pieceEmpty"},
+  {"id": "r12_c6",  "tile": "pieceEmpty"},
+  {"id": "r12_c7",  "tile": "pieceEmpty"},
+  {"id": "r12_c8",  "tile": "pieceEmpty"},
+  {"id": "r12_c9",  "tile": "pieceEmpty"},
+  {"id": "r12_c10",  "tile": "pieceEmpty"},
+  {"id": "r12_c11",  "tile": "pieceEmpty"},
+  {"id": "r12_c12",  "tile": "pieceEmpty"},
+  {"id": "r12_c13",  "tile": "pieceEmpty"},
+  {"id": "r12_c14",  "tile": "pieceEmpty"},
+
+   //Row 13  
+  {"id": "r13_c0",  "tile": "pieceEmpty"},
+  {"id": "r13_c1",  "tile": "pieceEmpty"},
+  {"id": "r13_c2",  "tile": "pieceEmpty"},
+  {"id": "r13_c3",  "tile": "pieceEmpty"},
+  {"id": "r13_c4",  "tile": "pieceEmpty"},
+  {"id": "r13_c5",  "tile": "pieceEmpty"},
+  {"id": "r13_c6",  "tile": "pieceEmpty"},
+  {"id": "r13_c7",  "tile": "pieceEmpty"},
+  {"id": "r13_c8",  "tile": "pieceEmpty"},
+  {"id": "r13_c9",  "tile": "pieceEmpty"},
+  {"id": "r13_c10",  "tile": "pieceEmpty"},
+  {"id": "r13_c11",  "tile": "pieceEmpty"},
+  {"id": "r13_c12",  "tile": "pieceEmpty"},
+  {"id": "r13_c13",  "tile": "pieceEmpty"},
+  {"id": "r13_c14",  "tile": "pieceEmpty"},
+
+   //Row 14  
+  {"id": "r14_c0",  "tile": "pieceEmpty"},
+  {"id": "r14_c1",  "tile": "pieceEmpty"},
+  {"id": "r14_c2",  "tile": "pieceEmpty"},
+  {"id": "r14_c3",  "tile": "pieceEmpty"},
+  {"id": "r14_c4",  "tile": "pieceEmpty"},
+  {"id": "r14_c5",  "tile": "pieceEmpty"},
+  {"id": "r14_c6",  "tile": "pieceEmpty"},
+  {"id": "r14_c7",  "tile": "pieceEmpty"},
+  {"id": "r14_c8",  "tile": "pieceEmpty"},
+  {"id": "r14_c9",  "tile": "pieceEmpty"},
+  {"id": "r14_c10",  "tile": "pieceEmpty"},
+  {"id": "r14_c11",  "tile": "pieceEmpty"},
+  {"id": "r14_c12",  "tile": "pieceEmpty"},
+  {"id": "r14_c13",  "tile": "pieceEmpty"},
+  {"id": "r14_c14",  "tile": "pieceEmpty"},
 
 ];
     
@@ -284,6 +505,11 @@ function loadTiles(){
                $("#identifier").html("You just dragged the letter " + find_letter(draggableId) + " onto the square of the board with ID: " + droppableId);
                console.log("You just dragged the letter " + find_letter(draggableId) + " onto the square of the board with ID: " + droppableId);
                game_board[findPosition(droppableId)].tile = draggableId;
+               //Snap
+               $(this).append($(ui.draggable));
+               ui.draggable.css("top", $(this).css("top"));
+               ui.draggable.css("left", $(this).css("left"));
+               ui.draggable.css("position", "relative");
                find_word(droppableId);
            },
            //Handle the situation that the tile was removed.
@@ -297,7 +523,7 @@ function loadTiles(){
 
                 //Show that a tile was removed from the game_board variable
                 game_board[findPosition(droppableId)].tile = "pieceEmpty";
-
+                  
                 // Update the word and score
                 find_word();
               }
@@ -354,7 +580,7 @@ function find_word() {
     var score = 0;
     
     //Go through the first line of the game board and generate a possible word.
-    for(var i = 0; i < 30; i++) {
+    for(var i = 0; i < 225; i++) {
         if(game_board[i].tile !== "pieceEmpty") {
             word += find_letter(game_board[i].tile);
             score += find_score(game_board[i].tile);
@@ -425,7 +651,7 @@ function find_letter(given_id) {
 
 //This function determines which position in the array an id belongs to.
 function findPosition(given_id) {
-  for(var i = 0; i < 30; i++){
+  for(var i = 0; i < 225; i++){
     if(game_board[i].id == given_id) {
       return i;
     }
@@ -435,7 +661,7 @@ function findPosition(given_id) {
 
 //This function determines which drop_id a tile belongs to
 function find_drop_id(given_id) {
-  for(var i = 0; i < 30; i++){
+  for(var i = 0; i < 225; i++){
     if(game_board[i].tile == given_id) {
       return game_board[i].id;
     }

@@ -50,17 +50,15 @@ This page implement scrabble using drag-and-drop and jQuery UI.
 
         <!--Container for Score and Rack -->
         <div class="horiz-container">
+            <div class="second-container">
             <!--Rack for the First Hand of Tiles-->  
-            <img id="_rack" src="tile_rack.png" alt="Rack">
-            <div id="rack"></div>
-            <br>
-            <a href="notes.html">Note to the Grader: Please Click to Read!</a>
+                <img id="_rack" src="tile_rack.png" alt="Rack">
+                <div id="rack"></div>
+                <a href="notes.html">Note to the Grader: Please Click to Read!</a>
+            </div>
             <br>
             <!--Paragraph to display score-->  
             <p id="score">Score: </p>
-            <br>
-            <p>*Score is currently implemented for the first row of the board only since it was under the basic instructions. It does compute the score correctly!</p>
-            <br>
             <!--Paragraph to identify which tile was dragged where on the board.-->  
             <p id="identifier">Drag a tile to the board to start playing :)</p>
         </div>
@@ -357,13 +355,42 @@ This page implement scrabble using drag-and-drop and jQuery UI.
         </table>
       </div>  
       <!--Table Displaying Tiles, their value, original distribution and number left. -->
-            <table id="tbl">
-              <tr>
-                <th>Tile</th>
-                <th>Value</th>
-                <th>Orig.<br>Dist.</th>
-                <th>#<br>Left</th>
-              </tr>
-            </table>
+            <table id="letters_remain">
+            <tr>
+              <td colspan="14">Distribution of Remaining Letters: </td>
+            </tr>
+            <tr>
+              <td>A: 9</td>
+              <td>B: 2</td>
+              <td>C: 2</td>
+              <td>D: 4</td>
+              <td>E: 12</td>
+              <td>F: 2</td>
+              <td>G: 3</td>
+              <td>H: 2</td>
+              <td>I: 9</td>
+              <td>J: 1</td>
+              <td>K: 1</td>
+              <td>L: 4</td>
+              <td>M: 2</td>
+              <td>N: 6</td>
+            </tr>
+            <tr>
+              <td>O: 8</td>
+              <td>P: 2</td>
+              <td>Q: 1</td>
+              <td>R: 6</td>
+              <td>S: 2</td>
+              <td>T: 6</td>
+              <td>U: 8</td>
+              <td>V: 2</td>
+              <td>W: 2</td>
+              <td>X: 1</td>
+              <td>Y: 2</td>
+              <td>Z: 1</td>
+              <td>_: 2</td>
+              <td>    </td>
+            </tr>
+          </table>
     </body>
 </html>

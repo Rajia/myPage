@@ -61,10 +61,12 @@ This page implement scrabble using drag-and-drop and jQuery UI.
             <p id="score">Score: </p>
             <!--Paragraph to identify which tile was dragged where on the board.-->  
             <p id="identifier">Drag a tile to the board to start playing :)</p>
+            <p id="word">Word: </p>  
         </div>
       
       <br>
       <div class="boardContainer">
+      <button id="save_word" onclick="saveWord()">Save Word</button>
       <!--Creating a Table to display the board.-->
       <!--Each cell in the table will be given a class to identify which multiplier it had. -->
         <table id="scrabble_board">

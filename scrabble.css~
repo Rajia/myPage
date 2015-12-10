@@ -53,11 +53,14 @@ th{
 
 table{
     text-align: center;
+    margin: 0 auto;
+
 }
 
 #scrabble_board{
     margin: 0 auto;
 }
+
 
 /*Styling the Tiles on the board differently to indicate which values they have*/
 /*I got these images from https://www.google.com/search?q=scrabble+triple+word+score+image+50px+50px&espv=2&biw=1049&bih=703&source=lnms&tbm=isch&sa=X&sqi=2&ved=0ahUKEwijltj_6czJAhUJKiYKHcrdBMIQ_AUIBigB#tbm=isch&q=scrabble+triple+word+score+image+&imgrc=LaLjqLsbov_W7M%3A*/
@@ -97,6 +100,8 @@ td {
 p{
     color: purple;
 }
+
+/*Style paragraphs showing the content of the assignment that was completed in green.*/
 .completed{
     color: green;
 }

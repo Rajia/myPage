@@ -14,21 +14,39 @@ var original_tiles = [
 //Data sturcute for the game_board squares (for now only implementing score calculations for the first row.
 //Originally when the tile is empty, we will give it the value pieceEmpty
 var game_board = [
-  {"id": "drop0",  "tile": "pieceEmpty"},
-  {"id": "drop1",  "tile": "pieceEmpty"},
-  {"id": "drop2",  "tile": "pieceEmpty"},
-  {"id": "drop3",  "tile": "pieceEmpty"},
-  {"id": "drop4",  "tile": "pieceEmpty"},
-  {"id": "drop5",  "tile": "pieceEmpty"},
-  {"id": "drop6",  "tile": "pieceEmpty"},
-  {"id": "drop7",  "tile": "pieceEmpty"},
-  {"id": "drop8",  "tile": "pieceEmpty"},
-  {"id": "drop9",  "tile": "pieceEmpty"},
-  {"id": "drop10", "tile": "pieceEmpty"},
-  {"id": "drop11", "tile": "pieceEmpty"},
-  {"id": "drop12", "tile": "pieceEmpty"},
-  {"id": "drop13", "tile": "pieceEmpty"},
-  {"id": "drop14", "tile": "pieceEmpty"}
+  //Row 1
+  {"id": "r0_c0",  "tile": "pieceEmpty"},
+  {"id": "r0_c1",  "tile": "pieceEmpty"},
+  {"id": "r0_c2",  "tile": "pieceEmpty"},
+  {"id": "r0_c3",  "tile": "pieceEmpty"},
+  {"id": "r0_c4",  "tile": "pieceEmpty"},
+  {"id": "r0_c5",  "tile": "pieceEmpty"},
+  {"id": "r0_c6",  "tile": "pieceEmpty"},
+  {"id": "r0_c7",  "tile": "pieceEmpty"},
+  {"id": "r0_c8",  "tile": "pieceEmpty"},
+  {"id": "r0_c9",  "tile": "pieceEmpty"},
+  {"id": "r0_c10",  "tile": "pieceEmpty"},
+  {"id": "r0_c11",  "tile": "pieceEmpty"},
+  {"id": "r0_c12",  "tile": "pieceEmpty"},
+  {"id": "r0_c13",  "tile": "pieceEmpty"},
+  {"id": "r0_c14",  "tile": "pieceEmpty"},
+    
+  {"id": "r1_c0",  "tile": "pieceEmpty"},
+  {"id": "r1_c1",  "tile": "pieceEmpty"},
+  {"id": "r1_c2",  "tile": "pieceEmpty"},
+  {"id": "r1_c3",  "tile": "pieceEmpty"},
+  {"id": "r1_c4",  "tile": "pieceEmpty"},
+  {"id": "r1_c5",  "tile": "pieceEmpty"},
+  {"id": "r1_c6",  "tile": "pieceEmpty"},
+  {"id": "r1_c7",  "tile": "pieceEmpty"},
+  {"id": "r1_c8",  "tile": "pieceEmpty"},
+  {"id": "r1_c9",  "tile": "pieceEmpty"},
+  {"id": "r1_c10",  "tile": "pieceEmpty"},
+  {"id": "r1_c11",  "tile": "pieceEmpty"},
+  {"id": "r1_c12",  "tile": "pieceEmpty"},
+  {"id": "r1_c13",  "tile": "pieceEmpty"},
+  {"id": "r1_c14",  "tile": "pieceEmpty"},
+
 ];
     
 //Data Structure from Professor Heines's notes to display table
@@ -267,7 +285,6 @@ function loadTiles(){
                console.log("You just dragged the letter " + find_letter(draggableId) + " onto the square of the board with ID: " + droppableId);
                game_board[findPosition(droppableId)].tile = draggableId;
                find_word(droppableId);
-
            },
            //Handle the situation that the tile was removed.
            out: function(event, ui) {
@@ -337,7 +354,7 @@ function find_word() {
     var score = 0;
     
     //Go through the first line of the game board and generate a possible word.
-    for(var i = 0; i < 15; i++) {
+    for(var i = 0; i < 30; i++) {
         if(game_board[i].tile !== "pieceEmpty") {
             word += find_letter(game_board[i].tile);
             score += find_score(game_board[i].tile);
@@ -408,7 +425,7 @@ function find_letter(given_id) {
 
 //This function determines which position in the array an id belongs to.
 function findPosition(given_id) {
-  for(var i = 0; i < 15; i++){
+  for(var i = 0; i < 30; i++){
     if(game_board[i].id == given_id) {
       return i;
     }
@@ -418,7 +435,7 @@ function findPosition(given_id) {
 
 //This function determines which drop_id a tile belongs to
 function find_drop_id(given_id) {
-  for(var i = 0; i < 15; i++){
+  for(var i = 0; i < 30; i++){
     if(game_board[i].tile == given_id) {
       return game_board[i].id;
     }

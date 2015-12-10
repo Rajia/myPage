@@ -266,6 +266,13 @@ function loadTiles(){
                $("#identifier").html("You just dragged the letter " + find_letter(draggableId) + " onto the square of the board with ID: " + droppableId);
                console.log("You just dragged the letter " + find_letter(draggableId) + " onto the square of the board with ID: " + droppableId);
                game_board[findPosition(droppableId)].tile = draggableId;
+	       	                      
+               //Make the word snap
+                $(this).append($(ui.draggable));
+                ui.draggable.css("top", $(this).css("top"));
+                ui.draggable.css("left", $(this).css("left"));
+                ui.draggable.css("position", "relative");
+
                find_word();
            },
            //Handle the situation that the tile was removed.

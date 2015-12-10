@@ -332,6 +332,12 @@ scrabble_pieces = [
     {"letter":"_", "value":  0,  "amount":  0,  "remaining":  0}    
 ];
 
+//Completed Words Array
+var complete_words = [
+    
+];
+
+
 //Variable Declerations
 var $tilesGallery = $("#tilesGallery"), 
   $board = $("#singleLineOfBoard");
@@ -340,7 +346,9 @@ var $tilesGallery = $("#tilesGallery"),
       createTileDistribChart();
       loadTiles();
 }) ;
-    
+
+//Variable to keep track of word score
+var word_score = 0;    
 //This function creates the tile distribution chart that displays the number of tiles, their value, orig dist, and the number left.
 //Taken from Professor Heines's Notes: https://teaching.cs.uml.edu/~heines/91.461/91.461-2015-16f/461-lecs/lecture26.jsp
 function createTileDistribChart(){
@@ -574,13 +582,16 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function find_word() {
+function find_word(read_left) {
     //Variable Declerations
     var word = "";
     var score = 0;
+    var saved_score = word_score;
+    var board_length = game_board.length;
+    var word_count = complete_words.length;
     
     //Go through the first line of the game board and generate a possible word.
-    for(var i = 0; i < 225; i++) {
+    for(var i = 0; i < board_length; i++) {
         if(game_board[i].tile !== "pieceEmpty") {
             word += find_letter(game_board[i].tile);
             score += find_score(game_board[i].tile);
@@ -590,8 +601,18 @@ function find_word() {
     //Account for double and triple word tiles.
     score += (score * double_triple_word());
 
-    //Display the score.
-    $("#score").html("Score: " + score);
+    saved_score += score;
+    
+     //Display the score.
+    $("#score").html(saved_score);
+    
+    if(word != ""){
+        $("#word").html(word);
+        return;
+    }
+    $("#word").html("Word: _________ ");
+    
+   
 }
 
 //This function takes a letter's id and returns its score
@@ -641,11 +662,19 @@ function find_letter(given_id) {
     
   //Loop through the original tiles
   for(var i = 0; i < 7; i++) {
-    if(original_tiles[i].id == given_id) {
+    if(original_tiles[i].id === given_id) {
       return original_tiles[i].letter;
     }
   }
-  alert("letter invalid, it's id is: " + given_id);
+  
+    //Or in the completed word array
+  for(var i = 0; i < complete_words.length; i++) {
+    for(var x = 0; x < complete_words[i].length; x++) {
+      if(given_id === complete_words[i][x].id) {
+        return complete_words[i][x].letter;
+      }
+    }
+  }
   return -1;
 }
 
@@ -725,4 +754,144 @@ function updateTable() {
   });
 
   return true;
+}
+
+function saveWord() {    
+  alert("Saving Word!");
+  var game_board_length = game_board.length;      
+  var word;                                       
+  var index = 0;
+
+  //Create array to save the word.
+  word = [];
+
+  // Save everything in the game area into this new array.
+  for(var i = 0; i < game_board_length; i++) {
+    var obj = {};
+    obj["id"] = game_board[i].id;
+    obj["letter"] = find_letter(game_board[i].tile);
+    var tile_ID = game_board[i].tile;
+    var tile_url = "tiles/Scrabble_Tile_";
+    word.push(obj);  
+
+    try {
+      //Change the property of the tiles composing the word so that they are no longer draggable.
+      $("#" + tile_ID).draggable('disable');
+      $("#" + tile_ID).attr("id", "disabled" + (i + complete_words.length) ); 
+
+      //Find a new letter to be used.
+      var new_letter = getRandomTile();
+      
+      //Update the original tiles array with the new letters.
+      for(var x = 0; x < 7; x++) {
+            if(original_tiles[x].id === tile_ID) {
+              index = x;  
+              original_tiles[x].letter = new_letter;
+
+              // Create a new draggable object with the new letter and ID of the old one.
+              var new_piece = "<img class='pieces' id='piece" + index + "' src='" + tile_url + new_letter + ".jpg" + "' height='50' width='50'></img>";
+
+              // Append the peice to the rack.
+              $("#rack").append(new_piece);
+
+              // Make the piece draggable.
+              $("#piece" + index).draggable({
+                appendTo: $board,
+                revert: "invalid",            
+                start: function(ev, ui) {
+                 startPos = ui.helper.position();
+                },
+                stop: function() {
+                    $(this).draggable('option','revert','invalid');
+                }
+              });
+              
+              
+            //Make the scrabble board droppable and identify which piece was dropped onto which tile.
+            $("#scrabble_board td").droppable({
+               accept: ".ui-draggable",
+               appendTo: "body",
+               drop: function(event, ui){
+                   //Identify which letter tile is dropped onto which square. 
+                   //StackOverflow Tutorial regarding how to identify which item was dragged and which item was dropped: 
+                   //http://stackoverflow.com/questions/5562853/jquery-ui-get-id-of-droppable-element-when-dropped-an-item
+                   var draggableId = ui.draggable.attr("id");
+                   var droppableId = $(this).attr("id");
+                   $("#identifier").html("You just dragged the letter " + find_letter(draggableId) + " onto the square of the board with ID: " + droppableId);
+                   console.log("You just dragged the letter " + find_letter(draggableId) + " onto the square of the board with ID: " + droppableId);
+                   //Snap
+                   $(this).append($(ui.draggable));
+                   ui.draggable.css("top", $(this).css("top"));
+                   ui.draggable.css("left", $(this).css("left"));
+                   ui.draggable.css("position", "relative");
+                   find_word(droppableId);
+               },
+               //Handle the situation that the tile was removed.
+               out: function(event, ui) {
+                    var draggableId = ui.draggable.attr("id");
+                    var droppableId = $(this).attr("id");
+
+                    //Tell the user that you removed that tile.
+                   $("#identifier").html("You just removed the letter " + find_letter(draggableId) + " from the square of the board with ID: " + droppableId);
+                   console.log("You just removed the letter " + find_letter(draggableId) + " from the square of the board with ID: " + droppableId);
+
+                    //Show that a tile was removed from the game_board variable
+                    game_board[findPosition(droppableId)].tile = "pieceEmpty";
+
+                    // Update the word and score
+                    find_word();
+                  }
+                });
+
+            }
+        }
+    }
+    catch(e) {
+      //Handle exceptions
+    }
+  }
+
+  // Save the current word score. 
+  word_score = parseInt($("#score").html());  
+
+  // Save the given word in the complete_words array
+  complete_words.push(word);
+
+  //Empty game_board array.
+  game_board = [];
+
+  // Reset all the Scrabble tiles
+  reset_tiles();
+  
+  //Update Word Score
+  find_word();
+
+  // Update remaining letters table.
+  //updateTable();
+
+  return;
+}
+
+//This function loads 7 tiles and puts them back on the game rack.
+function reset_tiles() {
+  for(var i = 0; i < 7; i++) {
+    var piece_ID = "#piece" + i;
+    var position = $("#_rack").position();
+
+    //Position the tiles on the rack.
+    var img_left = position.left + 150 + (50 * i);    
+    var img_top = position.top + 60;                  
+
+    // Move the piece relative to where the rack is located on the screen.
+    $(piece_ID).css("left", img_left).css("top", img_top).css("position", "absolute");
+
+    $('#rack').append($(piece_ID));
+  }
+  //Empty Game Board Array
+  game_board = [];
+
+  //Update the word
+  find_word();
+
+  return;
 }

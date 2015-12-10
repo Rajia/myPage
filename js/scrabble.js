@@ -302,36 +302,37 @@ var ScrabbleTiles = [] ;
 
 //Data structure for scrabble pieces. Modeled after examples from Piazza.com that were posted by classmates.
 //https://piazza.com/class/icm9jynacvn5kx
-scrabble_pieces = [
-    {"letter":"A", "value":  1,  "amount":  9,  "remaining":  9},
-    {"letter":"B", "value":  3,  "amount":  2,  "remaining":  2},
-    {"letter":"C", "value":  3,  "amount":  2,  "remaining":  2},
-    {"letter":"D", "value":  2,  "amount":  4,  "remaining":  4},
-    {"letter":"E", "value":  1,  "amount": 12,  "remaining": 12},
-    {"letter":"F", "value":  4,  "amount":  2,  "remaining":  2},
-    {"letter":"G", "value":  2,  "amount":  3,  "remaining":  3},
-    {"letter":"H", "value":  4,  "amount":  2,  "remaining":  2},
-    {"letter":"I", "value":  1,  "amount":  9,  "remaining":  9},
-    {"letter":"J", "value":  8,  "amount":  1,  "remaining":  1},
-    {"letter":"K", "value":  5,  "amount":  1,  "remaining":  1},
-    {"letter":"L", "value":  1,  "amount":  4,  "remaining":  4},
-    {"letter":"M", "value":  3,  "amount":  2,  "remaining":  2},
-    {"letter":"N", "value":  1,  "amount":  6,  "remaining":  6},
-    {"letter":"O", "value":  1,  "amount":  8,  "remaining":  8},
-    {"letter":"P", "value":  3,  "amount":  2,  "remaining":  2},
-    {"letter":"Q", "value": 10,  "amount":  1,  "remaining":  1},
-    {"letter":"R", "value":  1,  "amount":  6,  "remaining":  6},
-    {"letter":"S", "value":  1,  "amount":  4,  "remaining":  4},
-    {"letter":"T", "value":  1,  "amount":  6,  "remaining":  6},
-    {"letter":"U", "value":  1,  "amount":  4,  "remaining":  4},
-    {"letter":"V", "value":  4,  "amount":  2,  "remaining":  2},
-    {"letter":"W", "value":  4,  "amount":  2,  "remaining":  2},
-    {"letter":"X", "value":  8,  "amount":  1,  "remaining":  1},
-    {"letter":"Y", "value":  4,  "amount":  2,  "remaining":  2},
-    {"letter":"Z", "value": 10,  "amount":  1,  "remaining":  1},
-    {"letter":"_", "value":  0,  "amount":  0,  "remaining":  0}    
-];
-
+function load_scrabble_pieces_array(){
+    scrabble_pieces = [
+        {"letter":"A", "value":  1,  "amount":  9,  "remaining":  9},
+        {"letter":"B", "value":  3,  "amount":  2,  "remaining":  2},
+        {"letter":"C", "value":  3,  "amount":  2,  "remaining":  2},
+        {"letter":"D", "value":  2,  "amount":  4,  "remaining":  4},
+        {"letter":"E", "value":  1,  "amount": 12,  "remaining": 12},
+        {"letter":"F", "value":  4,  "amount":  2,  "remaining":  2},
+        {"letter":"G", "value":  2,  "amount":  3,  "remaining":  3},
+        {"letter":"H", "value":  4,  "amount":  2,  "remaining":  2},
+        {"letter":"I", "value":  1,  "amount":  9,  "remaining":  9},
+        {"letter":"J", "value":  8,  "amount":  1,  "remaining":  1},
+        {"letter":"K", "value":  5,  "amount":  1,  "remaining":  1},
+        {"letter":"L", "value":  1,  "amount":  4,  "remaining":  4},
+        {"letter":"M", "value":  3,  "amount":  2,  "remaining":  2},
+        {"letter":"N", "value":  1,  "amount":  6,  "remaining":  6},
+        {"letter":"O", "value":  1,  "amount":  8,  "remaining":  8},
+        {"letter":"P", "value":  3,  "amount":  2,  "remaining":  2},
+        {"letter":"Q", "value": 10,  "amount":  1,  "remaining":  1},
+        {"letter":"R", "value":  1,  "amount":  6,  "remaining":  6},
+        {"letter":"S", "value":  1,  "amount":  4,  "remaining":  4},
+        {"letter":"T", "value":  1,  "amount":  6,  "remaining":  6},
+        {"letter":"U", "value":  1,  "amount":  4,  "remaining":  4},
+        {"letter":"V", "value":  4,  "amount":  2,  "remaining":  2},
+        {"letter":"W", "value":  4,  "amount":  2,  "remaining":  2},
+        {"letter":"X", "value":  8,  "amount":  1,  "remaining":  1},
+        {"letter":"Y", "value":  4,  "amount":  2,  "remaining":  2},
+        {"letter":"Z", "value": 10,  "amount":  1,  "remaining":  1},
+        {"letter":"_", "value":  0,  "amount":  0,  "remaining":  0}    
+    ];
+}
 //Completed Words Array
 var complete_words = [
     
@@ -343,6 +344,7 @@ var $tilesGallery = $("#tilesGallery"),
   $board = $("#singleLineOfBoard");
   $(document).ready( function () {    
       //When the document is loaded, create the tile distribution chart and load seven scrabble pieces randomly. 
+      load_scrabble_pieces_array();
       createTileDistribChart();
       loadTiles();
 }) ;
@@ -893,5 +895,51 @@ function reset_tiles() {
   //Update the word
   find_word();
 
+  return;
+}
+
+//This function resets the board!
+function resetBoard() {
+  var word_count = complete_words.length;
+
+  //Clear the game board array.
+  game_board = [];   
+  
+  //Reset the scrabble pieces array
+  load_scrabble_pieces_array();
+
+  // Set the score back to zero.
+  word_score = 0;
+
+  // Remove all the scrabble tiles in the rack.
+  for(var i = 0; i < 7; i++) {
+    var tileID = '#' + original_tiles[i].id;
+    $(tileID).draggable("destroy");   
+    $(tileID).remove();                  
+  }
+
+  // Remove all the scrabble tiles on the game board.
+  for(var i = 0; i < word_count; i++) {
+    for(var x = 0; x < complete_words[i].length; x++) {
+      var space = complete_words[i][x].id;
+
+      // Make the space droppable again.
+      $("#" + space).droppable("enable");
+
+      // Remove the tile attached to the space.
+      $("#disabled" + (i + x)).remove();    // The i + x will access all of them, since i starts at 0.
+    }
+  }
+
+  // Clear the complete word array.
+  complete_words = [];
+
+  // Load up new tiles
+  loadTiles();
+
+  find_word();    
+  
+  // Update the "Letters Remaining" table.
+  //update_remaining_table();
   return;
 }

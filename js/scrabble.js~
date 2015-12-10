@@ -266,14 +266,14 @@ function loadTiles(){
                $("#identifier").html("You just dragged the letter " + find_letter(draggableId) + " onto the square of the board with ID: " + droppableId);
                console.log("You just dragged the letter " + find_letter(draggableId) + " onto the square of the board with ID: " + droppableId);
                game_board[findPosition(droppableId)].tile = draggableId;
-	       	                      
+               find_word(droppableId);
+               
                //Make the word snap
                 $(this).append($(ui.draggable));
                 ui.draggable.css("top", $(this).css("top"));
                 ui.draggable.css("left", $(this).css("left"));
                 ui.draggable.css("position", "relative");
 
-               find_word();
            },
            //Handle the situation that the tile was removed.
            out: function(event, ui) {
@@ -342,22 +342,19 @@ function find_word() {
     var word = "";
     var score = 0;
     
-    // Go through the first line of the game board and generate a possible word.
+    //Go through the first line of the game board and generate a possible word.
     for(var i = 0; i < 15; i++) {
         if(game_board[i].tile !== "pieceEmpty") {
             word += find_letter(game_board[i].tile);
             score += find_score(game_board[i].tile);
         }
     }
+    
+    //Account for double and triple word tiles.
+    score += (score * double_triple_word());
 
     //Display the score.
     $("#score").html("Score: " + score);
-}
-
-// Determine whether to double the word score or not.
-function should_double_word() {
-  //TODO: IMPLEMENT THIS.
-  return 0;
 }
 
 //This function takes a letter's id and returns its score
@@ -433,4 +430,26 @@ function find_drop_id(given_id) {
     }
   }
   return -1;
+}
+
+//Check whether we have a double or triple word tile. Return 1 for double, Return 2 for triple.
+function double_triple_word() {
+  //Variable Declerations
+  var gameboard_length = game_board.length;
+  
+  //Check to see if the tile isn't empty and if it has the class double_word or the class triple_word
+  for (var i = 0; i < gameboard_length; i++) {
+    var space_ID = "#" + game_board[i].id;
+    if (game_board[i].tile !== "pieceEmpty"){
+        if ( $(space_ID).hasClass('double_word') == true ) {
+          //Double Word!
+          return 1;
+        }
+        else if ( $(space_ID).hasClass('triple_word') == true ) {
+          //Triple Word!
+          return 2;
+        }
+    }
+  }
+  return 0;
 }

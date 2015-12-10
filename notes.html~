@@ -19,7 +19,7 @@ This page provides notes to the grader.
     <body>
         <h1>Assignment 9: Notes to the Grader</h1>
         <p>Hi, thank you so much for taking the time to grade this assignment.</p>
-        <p>Unfortunately, I ran out of time completing the assignment, so I wanted to provide you with a list of the things I was able to complete. Thanks!</p>
+        <p>Unfortunately, I ran out of time completing the assignment, so I wanted to provide you with a list of the things I was able to complete and a few notes. Thanks!</p>
         <br>
         <ul>
             <li class="completed">(4) letter tiles in the player’s “hand” are selected randomly from a data structure with the proper distribution of the letters</li>
@@ -31,6 +31,8 @@ This page provides notes to the grader.
             <li class="completed">(4) multiple Scrabble board lines are implemented.</li>
             <li class="completed">(2) after playing a word, only the number of letter tiles needed to bring the player’s “hand” back to 7 tiles are selected.
             *Please note, this only works for the first word. You have to press save, then the number of tiles needed to bring the hand back to 7 will be placed on the rack.</li>
+            <li class="completed">(2) the board is cleared after each round so that a new word can be played.
+            *Press the Reset Board Button if you want to clear the board .</li>
         
         </ul>
     </body>

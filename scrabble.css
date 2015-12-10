@@ -51,12 +51,10 @@ th{
     color: white;
 }
 
-/*Centering the table*/
 table{
     text-align: center;
 }
 
-/*Centering the Scrabble Board*/
 #scrabble_board{
     margin: 0 auto;
 }
@@ -95,6 +93,7 @@ td {
   width: 50px;
 }
 
-.horiz-container > *{
-    display: inline-block;
+/*Style paragraphs with a purple color.*/
+p{
+    color: purple;
 }

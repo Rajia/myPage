@@ -1,0 +1,402 @@
+<!DOCTYPE HTML>
+<!--
+File: http://weblab.cs.uml.edu/~rabdelaz/weblab/scrabble.html
+Rajia M. Abdelaziz, Rajia.Abdelaziz@gmail.com, UMass Lowell Undergraduate 
+    Enrolled in 91.461 GUI Programming
+Created by RMA on December 05, 2015 at 4:30 PM
+Last Updated: 12/07/15 at 3:15 p.m
+This page implement scrabble using drag-and-drop and jQuery UI.  
+-->
+<html>
+<head>
+  <title>Scrabble</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="description" content="For 91.461 Assignment No. 9" />
+  
+  <!--External css files used to style the content of the page. -->
+  <link rel="stylesheet" href="scrabble.css">      
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  
+  <!--Scripts to load jQuery and jQuery-ui-->
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  
+  <!--Script to load the jQuery Validation Plug-In which is stored in the js folder -->
+  <script src="js/jquery.validate.min.js"></script>
+  
+  <!--Script to load the javascript for the page-->
+  <script src="js/scrabble.js"></script>
+  
+  <!--Built-In Styles for the Board and the Tiles Gallery-->
+  <style>
+    #tilesGallery { float: left; width: 65%; min-height: 12em; }
+    .tilesGallery.custom-state-active { background: #eee; }
+    .tilesGallery li { float: left; width: 96px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+    .tilesGallery li h5 { margin: 0 0 0.4em; cursor: move; }
+    .tilesGallery li a { float: right; }
+    .tilesGallery li img { width: 100%; cursor: move; }
+
+    #board { float: right; width: 32%; min-height: 18em; padding: 1%; }
+    #board h4 { line-height: 16px; margin: 0 0 0.4em; }
+    #board h4 .ui-icon { float: left; }
+    #board .gallery h5 { display: none; }
+  </style>
+  
+</head>
+
+    <body>
+      <!--Website Title-->
+      <h1>Assignment 9: Scrabble</h1>
+
+        <!--Container for Score and Rack -->
+        <div class="horiz-container">
+            <div class="second-container">
+            <!--Rack for the First Hand of Tiles-->  
+                <img id="_rack" src="tile_rack.png" alt="Rack">
+                <div id="rack"></div>
+                <a href="notes.html">Note to the Grader: Please Click to Read!</a>
+            </div>
+            <br>
+            <!--Paragraph to display score-->  
+            <p id="score">Score: </p>
+            <!--Paragraph to identify which tile was dragged where on the board.-->  
+            <p id="identifier">Drag a tile to the board to start playing :)</p>
+            <p id="word">Word: </p>  
+        </div>
+      
+      <br>
+      <div class="boardContainer">
+      
+      <!--Buttons-->
+      <button id="save_word" onclick="saveWord()">Save Word</button>
+      <button id="reset_board" onclick="resetBoard()">Reset Board</button>
+      
+      <!--Creating a Table to display the board.-->
+      <!--Each cell in the table will be given a class to identify which multiplier it had. -->
+        <table id="scrabble_board">
+            <tbody>
+                <!-- First Row -->
+                <tr>
+                    <td class="triple_word ui-droppable" id="r0_c0"></td>
+                    <td class="single_word single_letter ui-droppable" id="r0_c1"></td>
+                    <td class="single_word single_letter ui-droppable" id="r0_c2"></td>
+                    <td class="single_word double_letter ui-droppable" id="r0_c3"></td>
+                    <td class="single_word single_letter ui-droppable" id="r0_c4"></td>
+                    <td class="single_word single_letter ui-droppable" id="r0_c5"></td>
+                    <td class="single_word single_letter ui-droppable" id="r0_c6"></td>
+                    <td class="triple_word ui-droppable" id="r0_c7"></td>
+                    <td class="single_word single_letter ui-droppable" id="r0_c8"></td>
+                    <td class="single_word single_letter ui-droppable" id="r0_c9"></td>
+                    <td class="single_word single_letter ui-droppable" id="r0_c10"></td>
+                    <td class="single_word double_letter ui-droppable" id="r0_c11"></td>
+                    <td class="single_word single_letter ui-droppable" id="r0_c12"></td>
+                    <td class="single_word single_letter ui-droppable" id="r0_c13"></td>
+                    <td class="triple_word ui-droppable" id="r0_c14"></td>
+                </tr>
+
+                <!-- Second Row -->
+                <tr>
+                    <td class="ui-droppable" id="r1_c0"></td>
+                    <td class="double_word ui-droppable" id="r1_c1"></td>
+                    <td class="ui-droppable" id="r1_c2"></td>
+                    <td class="ui-droppable" id="r1_c3"></td>
+                    <td class="ui-droppable" id="r1_c4"></td>
+                    <td class="tripple_letter ui_droppable" id="r1_c5"></td>
+                    <td class="ui-droppable" id="r1_c6"></td>
+                    <td class="ui-droppable" id="r1_c7"></td>
+                    <td class="ui-droppable" id="r1_c8"></td>
+                    <td class="triple_letter ui-droppable" id="r1_c9"></td>
+                    <td class="ui-droppable" id="r1_c10"></td>
+                    <td class="ui-droppable" id="r1_c11"></td>
+                    <td class="ui-droppable" id="r1_c12"></td>
+                    <td class="double_word ui-droppable" id="r1_c13"></td>
+                    <td class="ui-droppable" id="r1_c14"></td>
+                </tr>
+
+                <!-- Third Row -->
+                <tr>
+                    <td class="ui-droppable" id="r2_c0"></td>
+                    <td class="ui-droppable" id="r2_c1"></td>
+                    <td class="double_word ui-droppable" id="r2_c2"></td>
+                    <td class="ui-droppable" id="r2_c3"></td>
+                    <td class="ui-droppable" id="r2_c4"></td>
+                    <td class="ui-droppable" id="r2_c5"></td>
+                    <td class="double_letter ui-droppable" id="r2_c6"></td>
+                    <td class="ui-droppable" id="r2_c7"></td>
+                    <td class="double_letter ui-droppable" id="r2_c8"></td>
+                    <td class="ui-droppable" id="r2_c9"></td>
+                    <td class="ui-droppable" id="r2_c10"></td>
+                    <td class="ui-droppable" id="r2_c11"></td>
+                    <td class="double_word ui-droppable" id="r2_c12"></td>
+                    <td class="ui-droppable" id="r2_c13"></td>
+                    <td class="ui-droppable" id="r2_c14"></td>
+                </tr>
+
+                <!-- Fourth Row -->
+                <tr>
+                    <td class="double_letter ui-droppable" id="r3_c0"></td>
+                    <td class="ui-droppable" id="r3_c1"></td>
+                    <td class="ui-droppable" id="r3_c2"></td>
+                    <td class="double_word ui-droppable" id="r3_c3"></td>
+                    <td class="ui-droppable" id="r3_c4"></td>
+                    <td class="ui-droppable" id="r3_c5"></td>
+                    <td class="ui-droppable" id="r3_c6"></td>
+                    <td class="double_letter ui-droppable" id="r3_c7"></td>
+                    <td class="ui-droppable" id="r3_c8"></td>
+                    <td class="ui-droppable" id="r3_c9"></td>
+                    <td class="ui-droppable" id="r3_c10"></td>
+                    <td class="double_word ui-droppable" id="r3_c11"></td>
+                    <td class="ui-droppable" id="r3_c12"></td>
+                    <td class="ui-droppable" id="r3_c13"></td>
+                    <td class="double_letter ui-droppable" id="r3_c14"></td>
+                </tr>
+
+                <!-- Fifth Row -->
+                  <tr>
+                    <td class="ui-droppable" id="r4_c0"></td>
+                    <td class="ui-droppable" id="r4_c1"></td>
+                    <td class="ui-droppable" id="r4_c2"></td>
+                    <td class="ui-droppable" id="r4_c3"></td>
+                    <td class="double_word ui-droppable" id="r4_c4"></td>
+                    <td class="ui-droppable" id="r4_c5"></td>
+                    <td class="ui-droppable" id="r4_c6"></td>
+                    <td class="ui-droppable" id="r4_c7"></td>
+                    <td class="ui-droppable" id="r4_c8"></td>
+                    <td class="ui-droppable" id="r4_c9"></td>
+                    <td class="double_word ui-droppable" id="r4_c10"></td>
+                    <td class="ui-droppable" id="r4_c11"></td>
+                    <td class="ui-droppable" id="r4_c12"></td>
+                    <td class="ui-droppable" id="r4_c13"></td>
+                    <td class="ui-droppable" id="r4_c14"></td>
+                  </tr>
+                <!-- Sixth Row -->
+                <tr>
+                    <td class="ui-droppable" id="r5_c0"></td>
+                    <td class="triple_letter ui-droppable" id="r5_c1"></td>
+                    <td class="ui-droppable" id="r5_c2"></td>
+                    <td class="ui-droppable" id="r5_c3"></td>
+                    <td class="ui-droppable" id="r5_c4"></td>
+                    <td class="triple_letter ui-droppable" id="r5_c5"></td>
+                    <td class="ui-droppable" id="r5_c6"></td>
+                    <td class="ui-droppable" id="r5_c7"></td>
+                    <td class="ui-droppable" id="r5_c8"></td>
+                    <td class="triple_letter ui-droppable" id="r5_c9"></td>
+                    <td class="ui-droppable" id="r5_c10"></td>
+                    <td class="ui-droppable" id="r5_c11"></td>
+                    <td class="ui-droppable" id="r5_c12"></td>
+                    <td class="triple_letter ui-droppable" id="r5_c13"></td>
+                    <td class="ui-droppable" id="r5_c14"></td>
+                </tr>
+
+                <!-- Seventh Row -->
+                <tr>
+                    <td class="ui-droppable" id="r6_c0"></td>
+                    <td class="ui-droppable" id="r6_c1"></td>
+                    <td class="double_letter ui-droppable" id="r6_c2"></td>
+                    <td class="ui-droppable" id="r6_c3"></td>
+                    <td class="ui-droppable" id="r6_c4"></td>
+                    <td class="ui-droppable" id="r6_c5"></td>
+                    <td class="double_letter ui-droppable" id="r6_c6"></td>
+                    <td class="ui-droppable" id="r6_c7"></td>
+                    <td class="double_letter ui-droppable" id="r6_c8"></td>
+                    <td class="ui-droppable" id="r6_c9"></td>
+                    <td class="ui-droppable" id="r6_c10"></td>
+                    <td class="ui-droppable" id="r6_c11"></td>
+                    <td class="double_letter ui-droppable" id="r6_c12"></td>
+                    <td class="ui-droppable" id="r6_c13"></td>
+                    <td class="ui-droppable" id="r6_c14"></td>
+                </tr>
+
+                <!-- Eighth Row -->
+                <tr>
+                    <td class="triple_word ui-droppable" id="r7_c0"></td>
+                    <td class="ui-droppable" id="r7_c1"></td>
+                    <td class="ui-droppable" id="r7_c2"></td>
+                    <td class="double_letter ui-droppable" id="r7_c3"></td>
+                    <td class="ui-droppable" id="r7_c4"></td>
+                    <td class="ui-droppable" id="r7_c5"></td>
+                    <td class="ui-droppable" id="r7_c6"></td>
+                    <td class="star ui-droppable" id="r7_c7"></td>
+                    <td class="ui-droppable" id="r7_c8"></td>
+                    <td class="ui-droppable" id="r7_c9"></td>
+                    <td class="ui-droppable" id="r7_c10"></td>
+                    <td class="double_letter ui-droppable" id="r7_c11"></td>
+                    <td class="ui-droppable" id="r7_c12"></td>
+                    <td class="ui-droppable" id="r7_c13"></td>
+                    <td class="triple_letter ui-droppable" id="r7_c14"></td>
+                </tr>
+
+                <!-- Ninth Row -->
+                <tr>
+                    <td class="ui-droppable" id="r8_c0"></td>
+                    <td class="ui-droppable" id="r8_c1"></td>
+                    <td class="double_letter ui-droppable" id="r8_c2"></td>
+                    <td class="ui-droppable" id="r8_c3"></td>
+                    <td class="ui-droppable" id="r8_c4"></td>
+                    <td class="ui-droppable" id="r8_c5"></td>
+                    <td class="double_letter ui-droppable" id="r8_c6"></td>
+                    <td class="ui-droppable" id="r8_c7"></td>
+                    <td class="double_letter ui-droppable" id="r8_c8"></td>
+                    <td class="ui-droppable" id="r8_c9"></td>
+                    <td class="ui-droppable" id="r8_c10"></td>
+                    <td class="ui-droppable" id="r8_c11"></td>
+                    <td class="double_letter ui-droppable" id="r8_c12"></td>
+                    <td class="ui-droppable" id="r8_c13"></td>
+                    <td class="ui-droppable" id="r8_c14"></td>
+                </tr>
+                
+                <!-- Tenth Row -->
+                <tr>
+                    <td class="ui-droppable" id="r9_c0"></td>
+                    <td class="triple_letter ui-droppable" id="r9_c1"></td>
+                    <td class="ui-droppable" id="r9_c2"></td>
+                    <td class="ui-droppable" id="r9_c3"></td>
+                    <td class="ui-droppable" id="r9_c4"></td>
+                    <td class="triple_letter ui-droppable" id="r9_c5"></td>
+                    <td class="ui-droppable" id="r9_c6"></td>
+                    <td class="ui-droppable" id="r9_c7"></td>
+                    <td class="ui-droppable" id="r9_c8"></td>
+                    <td class="triple_letter ui-droppable" id="r9_c9"></td>
+                    <td class="ui-droppable" id="r9_c10"></td>
+                    <td class="ui-droppable" id="r9_c11"></td>
+                    <td class="ui-droppable" id="r9_c12"></td>
+                    <td class="tripple_letter" id="r9_c13"></td>
+                    <td class="ui-droppable" id="r9_c14"></td>
+                </tr>
+                <!-- Eleventh Row -->
+                <tr>
+                    <td class="ui-droppable" id="r10_c0"></td>
+                    <td class="ui-droppable" id="r10_c1"></td>
+                    <td class="ui-droppable" id="r10_c2"></td>
+                    <td class="ui-droppable" id="r10_c3"></td>
+                    <td class="double_word ui-droppable" id="r10_c4"></td>
+                    <td class="ui-droppable" id="r10_c5"></td>
+                    <td class="ui-droppable" id="r10_c6"></td>
+                    <td class="ui-droppable" id="r10_c7"></td>
+                    <td class="ui-droppable" id="r10_c8"></td>
+                    <td class="ui-droppable" id="r10_c9"></td>
+                    <td class="double_word ui-droppable" id="r10_c10"></td>
+                    <td class="ui-droppable" id="r10_c11"></td>
+                    <td class="ui-droppable" id="r10_c12"></td>
+                    <td class="ui-droppable" id="r10_c13"></td>
+                    <td class="ui-droppable" id="r10_c14"></td>
+                </tr>
+
+                <!-- Twelfth Row -->
+                <tr>
+                    <td class="double_letter ui-droppable" id="r11_c0"></td>
+                    <td class="ui-droppable" id="r11_c1"></td>
+                    <td class="ui-droppable" id="r11_c2"></td>
+                    <td class="double_word ui-droppable" id="r11_c3"></td>
+                    <td class="ui-droppable" id="r11_c4"></td>
+                    <td class="ui-droppable" id="r11_c5"></td>
+                    <td class="ui-droppable" id="r11_c6"></td>
+                    <td class="double_letter ui-droppable" id="r11_c7"></td>
+                    <td class="ui-droppable" id="r11_c8"></td>
+                    <td class="ui-droppable" id="r11_c9"></td>
+                    <td class="ui-droppable" id="r11_c10"></td>
+                    <td class="double_word ui-droppable" id="r11_c11"></td>
+                    <td class="ui-droppable" id="r11_c12"></td>
+                    <td class="ui-droppable" id="r11_c13"></td>
+                    <td class="double_letter ui-droppable" id="r11_c14"></td>
+                </tr>
+
+                <!-- Thirteenth Row -->
+                <tr>
+                    <td class="ui-droppable" id="r12_c0"></td>
+                    <td class="ui-droppable" id="r12_c1"></td>
+                    <td class="double_word ui-droppable" id="r12_c2"></td>
+                    <td class="ui-droppable" id="r12_c3"></td>
+                    <td class="ui-droppable" id="r12_c4"></td>
+                    <td class="ui-droppable" id="r12_c5"></td>
+                    <td class="double_letter ui-droppable" id="r12_c6"></td>
+                    <td class="ui-droppable" id="r12_c7"></td>
+                    <td class="double_letter ui-droppable" id="r12_c8"></td>
+                    <td class="ui-droppable" id="r12_c9"></td>
+                    <td class="ui-droppable" id="r12_c10"></td>
+                    <td class="ui-droppable" id="r12_c11"></td>
+                    <td class="double_word ui-droppable" id="r12_c12"></td>
+                    <td class="ui-droppable" id="r12_c13"></td>
+                    <td class="ui-droppable" id="r12_c14"></td>
+                </tr>
+
+                <!-- Fourteenth Row -->
+                <tr>
+                    <td class="ui-droppable" id="r13_c0"></td>
+                    <td class="double_word ui-droppable" id="r13_c1"></td>
+                    <td class="ui-droppable" id="r13_c2"></td>
+                    <td class="ui-droppable" id="r13_c3"></td>
+                    <td class="ui-droppable" id="r13_c4"></td>
+                    <td class="triple_letter ui-droppable" id="r13_c5"></td>
+                    <td class="ui-droppable" id="r13_c6"></td>
+                    <td class="ui-droppable" id="r13_c7"></td>
+                    <td class="ui-droppable" id="r13_c8"></td>
+                    <td class="triple_letter ui-droppable" id="r13_c9"></td>
+                    <td class="ui-droppable" id="r13_c10"></td>
+                    <td class="ui-droppable" id="r13_c11"></td>
+                    <td class="ui-droppable" id="r13_c12"></td>
+                    <td class="double_word ui-droppable" id="r13_c13"></td>
+                    <td class="ui-droppable" id="r13_c14"></td>
+                </tr>
+
+                <!-- Fifteenth Row -->
+                  <tr>
+                    <td class="triple_word ui-droppable" id="r14_c0"></td>
+                    <td class="ui-droppable" id="r14_c1"></td>
+                    <td class="ui-droppable" id="r14_c2"></td>
+                    <td class="double_letter ui-droppable" id="r14_c3"></td>
+                    <td class="ui-droppable" id="r14_c4"></td>
+                    <td class="ui-droppable" id="r14_c5"></td>
+                    <td class="ui-droppable" id="r14_c6"></td>
+                    <td class="triple_word ui-droppable" id="r14_c7"></td>
+                    <td class="ui-droppable" id="r14_c8"></td>
+                    <td class="ui-droppable" id="r14_c9"></td>
+                    <td class="ui-droppable" id="r14_c10"></td>
+                    <td class="double_letter ui-droppable" id="r14_c11"></td>
+                    <td class="ui-droppable" id="r14_c12"></td>
+                    <td class="ui-droppable" id="r14_c13"></td>
+                    <td class="triple_word ui-droppable" id="r14_c14"></td>
+                  </tr>
+            </tbody> 
+        </table>
+      </div>  
+      <!--Table Displaying Tiles, their value, original distribution and number left. -->
+            <table id="letters_remain">
+            <tr>
+              <td colspan="14">Distribution of Remaining Letters: </td>
+            </tr>
+            <tr>
+              <td>A: 9</td>
+              <td>B: 2</td>
+              <td>C: 2</td>
+              <td>D: 4</td>
+              <td>E: 12</td>
+              <td>F: 2</td>
+              <td>G: 3</td>
+              <td>H: 2</td>
+              <td>I: 9</td>
+              <td>J: 1</td>
+              <td>K: 1</td>
+              <td>L: 4</td>
+              <td>M: 2</td>
+              <td>N: 6</td>
+            </tr>
+            <tr>
+              <td>O: 8</td>
+              <td>P: 2</td>
+              <td>Q: 1</td>
+              <td>R: 6</td>
+              <td>S: 2</td>
+              <td>T: 6</td>
+              <td>U: 8</td>
+              <td>V: 2</td>
+              <td>W: 2</td>
+              <td>X: 1</td>
+              <td>Y: 2</td>
+              <td>Z: 1</td>
+              <td>_: 2</td>
+              <td>    </td>
+            </tr>
+          </table>
+    </body>
+</html>

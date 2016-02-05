@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--
+Rajia M. Abdelaziz, Rajia.Abdelaziz@gmail.com, UMass Lowell Undergraduate 
+    Enrolled in 91.461 GUI Programming
+Created by RMA on September 29, 2015 at 8:00 PM
+Last Updated: 9/30/15 at 5:00 p.m
+
+This web page demonstrates formatting dynamic text. The article used is taken 
+from www.inquisitr.com and was written by: Johnthomas Didymus.   
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Alien Shocker!</title>
+           
+        <!-- This external css file is modeled after tutorials from w3schools.com -->
+        <link rel="stylesheet" href="text_formatting_styles.css">
+
+        <!-- The following three scripts are modeled after Prof. Jesse Heines's class notes -->
+        
+        <!-- 
+            Load jQuery library from the Google Content Delivery Network (CDN)
+            see http://encosia.com/3-reasons-why-you-should-let-google-host-jquery-for-you/
+            however, note that you obviously must be online for this to work
+            alternatively, you can download jQuery and store it locally from
+               http://jquery.com/download/
+        -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <!-- Loads the JSON file containing the text of the article -->
+        <script type="text/javascript">
+          var story;
+          
+          // Note to advanced students:
+          //   Do *NOT* use the jQuery getJSON function here, because in this
+          // application the AJAX call has to be synchronous (that is, we need to
+          // wait for it to be done before continuing), and the getJSON function
+          // is always asynchronous.  Reference:
+          // http://stackoverflow.com/questions/2765411/is-it-possible-to-set-asyncfalse-to-getjson-call
+          //   The other approach is to change the global jQuery ajaxSetup option,
+          // but this is controversial, as discussed on the referenced page.
+          jQuery.ajax({
+            async: false,
+            dataType: "json",
+            url: "AlienShocker.json" ,
+            success: function( data ) {
+              story = data ;
+            }
+          });
+
+          jQuery(document).ready( function() {
+            placeContent() ;
+          } ) ;
+        </script>
+        
+        <!-- Determines which browser is being used. --> 
+        <script type="text/javascript">
+          var strFirstParaClass = "" ;
+          var strNavString = navigator.userAgent ;
+          // console.log( navigator.userAgent ) ;
+          // console.log( strNavString ) ;
+          if ( strNavString.indexOf( "Firefox" ) !== -1 ) {
+            strFirstParaClass = "Firefox" ;
+          } else if ( strNavString.indexOf( "Chrome" ) !== -1 ) {
+            strFirstParaClass = "Chrome" ;
+          } else if ( strNavString.indexOf( "Safari" ) !== -1 ) {
+            strFirstParaClass = "Safari" ;
+          }
+        </script>
+        
+        <!-- Places JSON text in the placeholder on this page -->
+        <script type="text/javascript">
+          function placeContent() {
+            var strContent = "";
+            
+            //Creates Dynamic content from JSON
+            strContent += "<h1 class='title'>" + story.title + "</h1>" ;
+            strContent += "<h2 class='author'>by: " + story.author + "</h2>" ;
+            strContent += "<h2 class='date'>" + story.date + "</h2>" ; 
+            
+            for ( var para = 0 ; para < story.text.paragraphs.length ; para++ ) {
+              //Paragraphs 4 and 7 are both quotes
+              if(para === 4 || para===7){
+                  strContent += "<p class='quote'>";
+              }else{
+                strContent += "<p>" ;
+              }
+              for ( var sent = 0 ; sent < story.text.paragraphs[para].length ; sent++ ) {
+                strContent += story.text.paragraphs[para][sent] + "&nbsp; " ;
+              }
+              strContent += "</p>" ;
+            }
+
+            jQuery("#content").html( strContent ) ;
+          }
+        </script>
+    </head>
+    <body>
+        <!-- Space Shuttle Image taken from: http://wallpoper.com/images/00/31/60/66/outer-space_00316066.jpg -->
+        <img src="space_shuttle.jpg" alt="Image of Outer Space" > 
+
+        <!-- Content of the web page is taken from Inquisitr.com -->
+        <div id="content"></div>
+
+        <!-- Link to view the actual article and code. -->
+        <p>Interested in finding out more? Visit: <a href="http://www.inquisitr.com/1753494/alien-ufo-cover-up-nasa-shuts-livestream-as-gigantic-ufo-appears-near-iss-blogger-claims/#pobCbrgrPtDesQqR.99">Inquisitr.com!</a></p>        
+        <p><a href="./AlienShocker.json">View JSON File</a></p>
+        <p><a href="./text_formatting_styles.css">View CSS File</a></p>
+    </body>
+</html>

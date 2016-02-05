@@ -1,0 +1,81 @@
+/*
+Rajia M. Abdelaziz, Rajia.Abdelaziz@gmail.com, UMass Lowell Undergraduate 
+    Enrolled in 91.461 GUI Programming
+Created by RMA on September 30, 2015 at 2:00 PM
+Last Updated: 9/30/15 at 5:00 p.m
+
+This is an external style sheet created to format dynamic text. 
+*/
+
+/*
+The body of the web page should have a black background color and a 75 px margin
+on the left and on the right. 
+*/
+body{
+    background-color: black;
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+/*
+The text in the header should use a unique font from Google and should be 
+aligned to the left of the page. The text color should be gold and transformed
+to uppercase. 
+*/
+h1
+{
+    font-family: 'Slabo 27px', serif;
+    text-align: left;
+    font-size: 40px;
+    color: goldenrod;
+    text-transform: uppercase;
+    font-weight: bold; 
+}
+
+/* The size of the text formatting for the date and author should be larger than
+the body's text.It should also be indented as well as bold and italic */
+h2{
+    font-weight: bold;
+    font-size: 25px;
+    color: green;
+    font-style: italic;
+    margin-left: 20px;
+}
+
+/*The image on the web page should be floatted to the right. The image should 
+have a margin around it and be displayed inline. */
+img
+{
+    float: right;
+    display: inline;
+    height: 350px;
+    margin-top: 75px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+/*The first letter of the article should be upper-case, bold and en-larged. */
+h2.date + p:first-letter{
+    text-transform: uppercase;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+/*Paragraph text should be green and the font should be sans-serif. */
+p 
+{
+    color:green; font:sans-serif;     
+}
+
+/*Quotes should be written in a unique Google font and should be both bold and 
+italic. The line height should be almost double the size of the normal 
+line-height spacing. In addition, quotes should be indented. */
+.quote{
+    font-size: 15px; 
+    font-weight: bold;
+    font-style: italic;
+    line-height: 175%;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-family: 'Lobster', cursive;
+}
